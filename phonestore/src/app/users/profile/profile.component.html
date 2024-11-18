@@ -1,0 +1,55 @@
+<section class="profile-hero">
+    <div class="container">
+        <h2>User Profile</h2>
+        <p>Welcome back, <span id="username">{{user?.username}}</span> <strong id="email">( {{user?.email}} )</strong></p>
+    </div>
+</section>
+
+<section class="created-laptops">
+    <div class="container">
+        <h3>Created Laptops</h3>
+        <div class="laptop-list">
+            @if(createdPhones.length >0){
+                @for (phone of createdPhones; track $index) {
+                    <div class="laptop-item">
+                        <img src="{{phone.image}}"
+                            alt="Laptop">
+                        <p><strong>Price:</strong> {{phone.price}}</p>
+                        <p><strong>Model:</strong> {{phone.model}}</p>
+                        <a href="/items/{{phone._id}}/details" class="btn">View Details</a>
+                    </div>
+                }
+            }
+            
+            <!-- Add more laptop items as needed -->
+            @else {
+            <p class="no-post">You haven't created a post yet</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="preferred-laptops">
+    <div class="container">
+        <h3>Preferred Laptops</h3>
+        <div class="laptop-list">
+            @if(orderedPhones.length >0){
+                @for (phone of orderedPhones; track $index) {
+                    <div class="laptop-item">
+                        <img src="{{phone.image}}"
+                            alt="Laptop">
+                        <p><strong>Price:</strong> {{phone.price}}</p>
+                        <p><strong>Model:</strong> {{phone.model}}</p>
+                        <a href="/items/{{phone._id}}/details" class="btn">View Details</a>
+                    </div>
+                }
+                
+                
+            } @else {
+            <!-- Add more laptop items as needed --> 
+
+            <p class="no-post">You haven't preferred any devices yet</p>
+            }
+        </div>
+    </div>
+</section>

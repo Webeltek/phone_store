@@ -1,4 +1,4 @@
-const { userModel, themeModel, postModel, phoneModel } = require('../models');
+const { userModel, themeModel, phoneModel } = require('../models');
 
 function getLatestPhones(req, res, next) {
     const limit = Number(req.query.limit) || 0;
@@ -66,7 +66,7 @@ function deletePhone(req, res, next) {
     Promise.all([
         phoneModel.findOneAndDelete({ _id: phoneId, userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { phones: phoneId } }),
-        themeModel.findOneAndUpdate({ _id: themeId }, { $pull: { phones: phoneId } }),
+        messageModel.deleteMany({ phoneId: phoneId }),
     ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {

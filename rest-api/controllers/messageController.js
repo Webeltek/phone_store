@@ -1,7 +1,7 @@
-const { userModel, themeModel, messageModel } = require('../models');
+const { userModel, phoneModel, messageModel } = require('../models');
 
-function newMessage(text, userId, themeId) {
-    return messageModel.create({ text, userId, themeId })
+function newMessage(text, userId, phoneId) {
+    return messageModel.create({ text, userId, phoneId })
         .then(message => {
             return phoneModel.findByIdAndUpdate({ _id: phoneId }, { $push: { messageList: message._id }}, { new: true })
         })
@@ -29,11 +29,11 @@ function getMessages(req, res, next){
 }
 
 function createMessage(req, res, next) {
-    const { themeId } = req.params;
+    const { phoneId } = req.params;
     const { _id: userId } = req.user;
     const { messageText } = req.body;
 
-    newMessage(messageText, userId, themeId)
+    newMessage(messageText, userId, phoneId)
         .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
         .catch(next);
 }
@@ -57,13 +57,13 @@ function editMessage(req, res, next) {
 }
 
 function deleteMessage(req, res, next) {
-    const { messageId, themeId } = req.params;
+    const { messageId, phoneId } = req.params;
     const { _id: userId } = req.user;
 
     Promise.all([
         messageModel.findOneAndDelete({ _id: messageId, userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { messages: messageId } }),
-        themeModel.findOneAndUpdate({ _id: themeId }, { $pull: { messages: messageId } }),
+        phoneModel.findOneAndUpdate({ _id: phoneId }, { $pull: { messages: messageId } }),
     ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {

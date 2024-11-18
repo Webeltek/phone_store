@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 module.exports = () => {
   return mongoose.connect(config.dbURL, {
+    dbName: 'phonestore',
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
