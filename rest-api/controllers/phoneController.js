@@ -14,14 +14,20 @@ function getLatestPhones(req, res, next) {
 
 function getPhone(req,res, next){
     const phoneId = req.params.phoneId
-    phoneModel.findById(phoneId).then(phone => {
+    phoneModel.findById(phoneId)
+    .populate({
+        path: 'msgList',
+        populate: {
+            path: 'authorId'
+        }
+    })
+    .then(phone => {
         res.status(200).json(phone)
     })
     .catch(next);
 }
 
 function getPhones(req,res, next){
-    const phoneId = req.params.phoneId
     phoneModel.find().then(phones => {
         res.status(200).json(phones)
     })

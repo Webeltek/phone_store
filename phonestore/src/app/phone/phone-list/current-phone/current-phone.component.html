@@ -1,0 +1,63 @@
+
+<section class="details-hero">
+    <div class="container">
+        <h2>Laptop Details</h2>
+    </div>
+</section>
+
+<section class="details-content">
+    <div class="container">
+        <div class="product-details">
+            <div class="product-image">
+                <img src="{{phone.image}}" alt="Laptop">
+            </div>
+            <div class="product-info">
+                <h3>Model: {{phone.model}}</h3>
+                <p><strong>Screen Size:</strong> {{phone.screenSize}} inches</p>
+                <p><strong>Price:</strong> ${{phone.price}}</p>
+            </div>
+        </div>
+        @if(isAuthenticated){
+            <div class="product-actions">
+                @if(isOwner){
+                <button class="btn edit"><a href="/phones/{{phone._id}}/edit">Edit</a></button>
+                <button class="btn delete"><a href="/phones/{{phone._id}}/delete">Delete</a></button>
+                }@else if (isPreferred){
+                <p class="prefer-message">You've already preferred this device</p>
+                } @else {
+                <button class="btn prefer"><a href="/phones/{{phone._id}}/prefer">Prefer</a></button>
+                }
+            </div>
+            @if(phone.msgList){
+                @for (msg of phone.msgList; track $index) {
+                    <div class="comment">
+                        <header class="header">
+                            <p><span>{{msg.authorId.username}}</span> posted on <time>{{msg.created_at}}</time></p>
+                        </header>
+                        <div class="comment-main">
+                            <div class="userdetails">
+                                <img src="./profile.png" alt="avatar">
+                            </div>
+                            <div class="post-content">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure facere sint dolorem quam,
+                                    accusantium ipsa veniam laudantium inventore aut, tenetur quibusdam doloribus. Incidunt odio
+                                    nostrum facilis ipsum dolorem deserunt illum?</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="answer-comment">
+                    <p><span>currentUser</span> comment:</p>
+                    <div class="answer">
+                        <form>
+                            <textarea name="postText" id="comment" cols="30" rows="10"></textarea>
+                            <button>Post</button>
+                        </form>
+                    </div>
+                </div>
+
+            }
+                
+        }
+    </div>
+</section>

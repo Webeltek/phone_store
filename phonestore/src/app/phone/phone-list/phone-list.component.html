@@ -1,0 +1,32 @@
+
+
+<section class="catalog-hero">
+    <div class="container">
+        <h2>Product Catalog</h2>
+        <p>Explore our extensive range of laptops, desktops, and accessories.</p>
+    </div>
+</section>
+
+<section class="catalog">
+    <div class="container">
+        <div class="product-grid">
+            @if(phones.length>0){
+                @for (phone of phones; track $index) {
+                <div class="product-item">
+                    <img
+                        src="{{phone.image}}">
+                    <h3>{{phone.model}}</h3>
+                    <h2>${{phone.price}}</h2>
+                    <p>Description: {{phone.description}}</p>
+                    <p>Screen: {{phone.screenSize}} inch</p>
+                    <a [routerLink]="phone._id" class="btn">View Details</a>
+                </div>
+                }
+            }
+            @else{
+            <!-- Repeat product-item divs for more products -->
+            <p class="no-post">There haven't been any devices posted yet.</p>
+            }
+        </div>
+    </div>
+</section>

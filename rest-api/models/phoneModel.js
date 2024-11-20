@@ -44,7 +44,7 @@ const phoneSchema = new Schema({
         type: Types.ObjectId,
         ref: 'Message'
     }]
-});
+},{ timestamps: { createdAt: 'created_at' } });
 
 phoneSchema.methods = {
     testMethod: function(){

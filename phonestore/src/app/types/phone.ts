@@ -1,3 +1,6 @@
+import { Message } from "./message";
+import { User } from "./user";
+
 export interface Phone {
     _id: string,
     model: string,
@@ -5,7 +8,7 @@ export interface Phone {
     description: string,
     price: number,
     image: string,
-    orderList: string[],
-    owner: string,
-    msgList: string[]
+    orderList: User[],
+    owner: User,
+    msgList: Message[]
 }
