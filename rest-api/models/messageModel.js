@@ -18,7 +18,7 @@ const messageSchema = new mongoose.Schema({
 
 const messageModel = mongoose.model('Message', messageSchema);
 
-messageModel.findOne({model: 'Mopd1'}).then((doc=>{
+messageModel.findOne({text: 'Message 1'}).then((doc=>{
     if(!doc){
         return messageModel.create({
             text: 'Message 1',

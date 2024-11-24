@@ -8,16 +8,71 @@
 
 <section class="login-form">
     <div class="container">
-        <form  method="POST">
+        <form  #loginForm="ngForm" (ngSubmit)="login(loginForm)">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input #inputEmail type="email" id="email" name="email">
+                <input
+                [class]="(
+                    (inputEmail?.touched && inputEmail?.errors?.['required'])
+                || 
+                    (inputEmail?.touched && inputEmail?.errors?.['emailValidator'] )
+                ) ? 'input-error' : ''" 
+                ngModel 
+                #inputEmail="ngModel"
+                [appEmail]="emailPrefixLength"
+                required 
+                type="email" 
+                id="email" 
+                name="email">
             </div>
+            @if(inputEmail?.touched){
+                <div>
+                    @if(inputEmail?.errors?.['required']){
+                        <p class="error">
+                            Email is required!
+                        </p>
+                    }
+                    @if(inputEmail?.errors?.['emailValidator']){
+                        <p class="error">
+                            Email is not valid!
+                        </p>
+                    }
+                </div>
+            }
+            
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input #inputPassword type="password" id="password" name="password">
+                <input
+                [class]="(
+                    (inputPassword?.touched && inputPassword?.errors?.['required'])
+                || 
+                    (inputPassword?.touched && inputPassword?.errors?.['minlength'] )
+                ) ? 'input-error' : ''"
+                ngModel
+                #inputPassword="ngModel"
+                minlength="5"
+                required 
+                type="password" 
+                id="password" 
+                name="password">
             </div>
-            <button (click)="login($event,inputEmail.value,inputPassword.value)" type="submit" class="btn">Login</button>
+            @if(inputPassword?.touched){
+                <div>
+                    @if(inputPassword?.errors?.['required']){
+                        <p class="error">
+                            Password is required!
+                        </p>
+                    }
+                    @if(inputPassword?.errors?.['minlength']){
+                        <p class="error">
+                            Password must be at least 5 characters!
+                        </p>
+                    }
+                </div>
+            }
+            <button 
+            [disabled]="loginForm.invalid" class="btn"
+            [style]="{backgroundColor: loginForm.invalid ? 'grey':'#0073e6'}">Login</button>
             <p>Don't have an account? <a routerLink="/register">Register</a></p>
         </form>
     </div>

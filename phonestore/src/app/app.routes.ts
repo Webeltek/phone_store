@@ -7,6 +7,7 @@ import { PhoneListComponent } from './phone/phone-list/phone-list.component';
 import { CurrentPhoneComponent } from './phone/phone-list/current-phone/current-phone.component';
 import { AddPhoneComponent } from './phone/phone-list/add-phone/add-phone.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo : '/home', pathMatch: 'full'},
@@ -19,7 +20,7 @@ export const routes: Routes = [
         ] 
     },
     { path: 'profile', component: ProfileComponent},
-    { path: 'add-phone', component: AddPhoneComponent},
+    { path: 'add-phone', component: AddPhoneComponent, canActivate: [AuthGuard]},
     { path: '404', component: ErrorComponent},
     { path: '**', redirectTo: '/404'},
 ];

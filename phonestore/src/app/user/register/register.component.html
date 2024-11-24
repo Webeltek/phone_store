@@ -3,30 +3,76 @@
 <section class="register-hero">
     <div class="container">
         <h2>Create Your Account</h2>
-        <p>Join us to get the best deals on laptops, desktops, and accessories.</p>
+        <p>Join us to get the best deals on phones and accessories.</p>
     </div>
 </section>
 
 <section class="register-form">
     <div class="container">
-        <form  method="POST">
+        <form  [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="form-group">
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="">
+                <input 
+                [class]="isFieldTextMissing('name') || isNotMinLength ? 'input-error' : ''"
+                formControlName="name" type="text" id="name" name="name" value="">
             </div>
+            @if(registerForm.get('name')?.touched){
+                <div>
+                    @if(registerForm.get('name')?.errors?.['required']){
+                        <p class="error">
+                            Name is required!
+                        </p>
+                    }
+                    @if(registerForm.get('name')?.errors?.['minlength']){
+                        <p class="error">
+                            Name must be at least 5 characters!
+                        </p>
+                    }
+                </div>
+            }
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="">
+                <input
+                [class]="isFieldTextMissing('email') || isEmailNotValid ? 'input-error' : ''" 
+                formControlName="email" type="email" id="email" name="email" value="">
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+            @if(registerForm.get('email')?.touched){
+                <div>
+                    @if(registerForm.get('email')?.errors?.['required']){
+                        <p class="error">
+                            Email is required!
+                        </p>
+                    }
+                    @if(registerForm.get('email')?.errors?.['emailValidator']){
+                        <p class="error">
+                            Email is not valid!
+                        </p>
+                    }
+                </div>
+            }
+            <!--password-->
+            <div formGroupName="passGroup">
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input formControlName="password" type="password" id="password" name="password">
+                </div>
+                @if(passGroup?.get('password')?.touched){
+                    <div>
+                        @if(registerForm.get('passGroup')?.get('password')?.errors?.['required']){
+                            <p class="error">
+                                Password is required!
+                            </p>
+                        }
+                    </div>
+                    }
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input formControlName="rePassword" type="password" id="confirm-password" name="rePassword">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="rePassword">
-            </div>
-            <button type="submit" class="btn">Register</button>
+            <button class="btn"
+            [disabled]="registerForm.invalid"
+            [style]="{backgroundColor: registerForm.invalid ? 'grey':'#0073e6'}">Register</button>
             <p>Already have an account? <a routerLink="/login">Login</a></p>
         </form>
     </div>
