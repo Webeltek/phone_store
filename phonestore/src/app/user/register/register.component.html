@@ -54,7 +54,15 @@
             <div formGroupName="passGroup">
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input formControlName="password" type="password" id="password" name="password">
+                    <input
+                    [class]="(
+                    (passGroup?.get('password')?.touched &&
+                    passGroup?.get('password')?.errors?.['required']) ||
+                    (passGroup?.get('password')?.touched &&
+                    passGroup?.get('password')?.errors?.['minlength'])
+                    ) 
+                    ? 'input-error' : ''" 
+                    formControlName="password" type="password" id="password" name="password">
                 </div>
                 @if(passGroup?.get('password')?.touched){
                     <div>
@@ -63,12 +71,34 @@
                                 Password is required!
                             </p>
                         }
+                        @if(registerForm.get('passGroup')?.get('password')?.errors?.['minlength']){
+                            <p class="error">
+                                Password must be at least 5 characters!
+                            </p>
+                        }
                     </div>
                     }
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password:</label>
-                    <input formControlName="rePassword" type="password" id="confirm-password" name="rePassword">
+                    <input
+                    [class]="(
+                    (passGroup?.get('rePassword')?.touched &&
+                    (passGroup?.get('rePassword')?.errors?.['required'] ||
+                    passGroup?.errors?.['matchPasswordValidator']
+                    )) 
+                )? 'input-error' : ''" 
+                    formControlName="rePassword" type="password" id="confirm-password" name="rePassword">
                 </div>
+                @if(passGroup?.get('rePassword')?.touched){
+                    <div>
+                        @if(passGroup?.errors?.['matchPasswordValidator'] ||
+                        passGroup?.get('rePassword')?.errors?.['required']){
+                            <p class="error">
+                                Repeat Password does not match password!
+                            </p>
+                        }
+                    </div>
+                }
             </div>
             <button class="btn"
             [disabled]="registerForm.invalid"

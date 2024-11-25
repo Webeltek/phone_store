@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { EMAIL_PREFIX_LENGTH } from '../../constants';
+import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,11 @@ export class RegisterComponent {
     email: new FormControl('',[Validators.required, emailValidator(EMAIL_PREFIX_LENGTH)]),
     //todo put Password in group
     passGroup: new FormGroup({
-      password: new FormControl('',[Validators.required]),
+      password: new FormControl('',[Validators.required,Validators.minLength(5)]),
       rePassword : new FormControl('',[Validators.required])
     },
     {
-      validators: [],
+      validators: [matchPasswordsValidator('password','rePassword')],
     }
   )
   })
@@ -48,7 +49,7 @@ export class RegisterComponent {
   
 
   register(){
-    console.log(this.registerForm.invalid);
+    console.log(this.registerForm);
     
     if(this.registerForm.invalid){
       return

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Phone } from '../../../types/phone';
 import { ApiService } from '../../../api.service';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-phone',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './add-phone.component.html',
   styleUrl: './add-phone.component.css'
 })
@@ -14,12 +15,16 @@ export class AddPhoneComponent {
 
   constructor(private apiService: ApiService){}
 
-  addPhone(event: Event,model: string,screenSize: string,price: string,image: string,phoneText: string){
-    event.preventDefault()
-    console.log({model,screenSize,price,image,phoneText});
-    this.apiService.createPhone(model,screenSize,price,image,phoneText).subscribe(data=>{
-      console.log(data);
-      
-    })
+  addPhone(form: NgForm){
+    console.log(form.invalid);
+    console.log(form.value);
+    
+    if(form.invalid){
+      return;
+    }
+    
+    // this.apiService.createPhone(model,screenSize,price,image,phoneText).subscribe(data=>{
+    //   console.log(data);
+    // })
   }
 }
