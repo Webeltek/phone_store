@@ -39,6 +39,16 @@ function getPhones(req,res, next){
 function createPhone(req, res, next) {
     const { _id: userId } = req.user;
     const phoneData = req.body;
+    const form = formidable()
+    
+    form.parse(req, (err,fields,files)=>{
+        if (err){
+            next(err);
+            return;
+        }
+        console.log("Formidable fields, files", {fields, files});
+        
+    })
 
     return phoneModel.create({ ...phoneData, owner: userId })
         .then(phone => {

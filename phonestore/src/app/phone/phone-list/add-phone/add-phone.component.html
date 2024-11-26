@@ -9,9 +9,9 @@
 
 <section class="create-form">
     <div class="container">
-        <form #form="ngForm" (ngSubmit)="addPhone(form)"> 
+        <form enctype="multipart/form-data" #form="ngForm" (ngSubmit)="addPhone(form)"> 
             <div class="form-group">
-                <label for="model">Model:</label>
+                <label for="model">Model:<span class="red">*</span></label>
                 <input
                 ngModel 
                 #inputModel="ngModel"
@@ -19,17 +19,66 @@
                 minlength="5"
                 type="text" id="model" name="model" value="{{phone.model}}">
             </div>
+            @if(inputModel?.touched){
+                <div>
+                    @if(inputModel?.errors?.['required']){
+                        <p class="error">
+                            Model is required!
+                        </p>
+                    }
+                    @if(inputModel?.errors?.['minlength']){
+                        <p class="error">
+                            Model must be at least 5 characters!
+                        </p>
+                    }
+                </div>
+            }
             <div class="form-group">
-                <label for="screen-size">Screen Size:</label>
-                <input #inputScreenSize type="text" id="screen-size" name="screenSize" value="{{phone.screenSize}}">
+                <label for="screen-size">Screen Size:<span class="red">*</span></label>
+                <input
+                ngModel 
+                #inputScreenSize="ngModel"
+                required
+                minlength="2" 
+                type="text" id="screen-size" name="screenSize" value="{{phone.screenSize}}">
             </div>
+            @if(inputScreenSize?.touched){
+                <div>
+                    @if(inputScreenSize?.errors?.['required']){
+                        <p class="error">
+                            Screen size is required!
+                        </p>
+                    }
+                    @if(inputScreenSize?.errors?.['minlength']){
+                        <p class="error">
+                            Screen size must be at least 2 characters!
+                        </p>
+                    }
+                </div>
+            }
             <div class="form-group">
-                <label for="price">Price:</label>
-                <input #inputPrice type="text" id="price" name="price" value="{{phone.price}}">
+                <label for="price">Price:<span class="red">*</span></label>
+                <input
+                ngModel 
+                #inputPrice="ngModel"
+                appPosNum 
+                type="number" id="price" name="price" value="{{phone.price}}">
             </div>
+            @if(inputPrice?.touched){
+                <div>
+                    @if(inputPrice?.errors?.['posNumValidator']){
+                        <p class="error">
+                            Price must be positive number!
+                        </p>
+                    }
+                </div>
+            }
             <div class="form-group">
-                <label for="image">Image:</label>
-                <input #inputImage type="text" id="image" name="image" value="{{phone.image}}">
+                <label for="image">Image:<span class="red">*</span></label>
+                <input
+                ngModel 
+                #inputImage="ngModel" 
+                type="file" id="image" name="image" >
             </div>
             <div class="new-theme-content">
                 <label for="phoneText">Description <span class="red">*</span></label>
@@ -42,16 +91,26 @@
                 ngModel
                 #inputPhoneText="ngModel"
                 minlength="10"
+                required
                 ></textarea>
-                <!-- <p class="error">
-                    The field with your post is required.
-                </p>
-                <p class="error">
-                    Post must be at least 10 characters long.
-                </p> -->
+                @if(inputPhoneText?.touched){
+                    <div>
+                        @if(inputPhoneText?.errors?.['required']){
+                            <p class="error">
+                                Description is required!
+                            </p>
+                        }
+                        @if(inputPhoneText?.errors?.['minlength']){
+                            <p class="error">
+                                Description must be at least 10 characters!
+                            </p>
+                        }
+                    </div>
+                }
             </div>
             
-            <button  class="btn" >Create Product</button>
+            <button  [disabled]="form.invalid" class="btn"
+            [style]="{backgroundColor: form.invalid ? 'grey':'#0073e6'}">Create Product</button>
         </form>
     </div>
 </section>

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Phone } from '../../../types/phone';
 import { ApiService } from '../../../api.service';
 import { FormsModule, NgForm } from '@angular/forms';
+import { PosNumDirective } from '../../../directives/posNum.directive';
 
 @Component({
   selector: 'app-add-phone',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,PosNumDirective],
   templateUrl: './add-phone.component.html',
   styleUrl: './add-phone.component.css'
 })

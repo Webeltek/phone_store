@@ -1,11 +1,78 @@
 <section class="profile-hero">
     <div class="container">
         <h2>User Profile</h2>
-        <p>Welcome back, 
-            <span id="username">{{user?.username}}</span> 
-            <strong id="email">( {{user?.email}} )</strong>
-        </p>
-        <a class="edit-button">Edit</a>
+        <!-- Readonly mode-->
+         @if(!isEditMode){
+
+             <ng-container>
+                 <div class="flex-prof">
+                     <p>Username: </p>
+                     <p>{{profileDetails.username}}</p>
+                 </div>
+                 <div class="flex-prof">
+                     <p>Email: </p>
+                     <p>{{profileDetails.email}}</p>
+                 </div>
+                <div [style]="{ marginTop: '20px'}">
+                     <button class="edit-button" (click)="toggleEditMode()">Edit</button>
+                 </div>
+             </ng-container>
+         } @else {
+         <ng-container>
+            <form [formGroup]="form" (ngSubmit)="handleSaveProfile()">
+                <div class="flex-prof">
+                    <p>Username: </p>
+                    <input 
+                    formControlName="username"
+                    type="text" name="username" id="username" value="Johny">
+                </div>
+                @if(form.get('username')?.touched){
+                    <div>
+                        @if(form.get('username')?.errors?.['required']){
+                            <p class="error">
+                                Username is required!
+                            </p>
+                        }
+                        @if(form.get('username')?.errors?.['minlength']){
+                            <p class="error">
+                                Username must be at least 5 characters!
+                            </p>
+                        }
+                    </div>
+                }
+                <div class="flex-prof">
+                    <p>Email: </p>
+                    <input
+                    formControlName="email"
+                    type="email" name="email" id="email" value="john.doe@gmail.com">
+                </div>
+                @if(form.get('email')?.touched){
+                    <div>
+                        @if(form.get('email')?.errors?.['required']){
+                            <p class="error">
+                                Email is required!
+                            </p>
+                        }
+                        @if(form.get('email')?.errors?.['emailValidator']){
+                            <p class="error">
+                                Email is not valid!
+                            </p>
+                        }
+                    </div>
+                }
+                <div [style]="{ marginTop : '20px'}">
+                    <button class="cancel-button" (click)="onCancel($event)">Cancel</button>
+                    <button class="save-button" 
+                    [disabled]="form.invalid" 
+                    [style]="{
+                        marginLeft: '50px',
+                        backgroundColor: form.invalid ? 'grey':'#5cb85c',
+                        borderColor: form.invalid ? 'grey': '#5cb85c'
+                    }">Save</button>
+                </div>
+            </form>
+         </ng-container>
+        }
     </div>
 </section>
 

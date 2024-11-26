@@ -19,3 +19,8 @@ export interface UserForAuth{
     password: string;
 }
 
+export interface ProfileDetails {
+    username: string,
+    email: string
+}
+
