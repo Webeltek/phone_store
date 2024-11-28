@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { EMAIL_PREFIX_LENGTH } from '../../constants';
 import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
+import { RegUser, UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +14,12 @@ import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  constructor(
+    private userService: UserService,
+    private router: Router){}
+
   registerForm = new FormGroup({
-    name: new FormControl('',[Validators.required,Validators.minLength(5)]),
+    username: new FormControl('',[Validators.required,Validators.minLength(5),Validators.pattern('[a-zA-Z0-9]+')]),
     email: new FormControl('',[Validators.required, emailValidator(EMAIL_PREFIX_LENGTH)]),
     //todo put Password in group
     passGroup: new FormGroup({
@@ -47,12 +52,26 @@ export class RegisterComponent {
   }
     
   
-
+  // TODO : modify 
   register(){
-    console.log(this.registerForm);
+    console.log(this.registerForm.value);
     
     if(this.registerForm.invalid){
       return
     }
+    console.log(this.registerForm.value);
+    
+
+    const { 
+      username, 
+      email, 
+      passGroup: {password, rePassword}= {}
+    } = this.registerForm.value;
+
+    this.userService.register(username!,email!, password!, rePassword!)
+    .subscribe(()=>{
+      this.router.navigate(['/phones'])
+    })
+    
   }
 }

@@ -11,21 +11,26 @@
     <div class="container">
         <form  [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="form-group">
-                <label for="name">Name:</label>
+                <label for="name">Username:</label>
                 <input 
                 [class]="isFieldTextMissing('name') || isNotMinLength ? 'input-error' : ''"
-                formControlName="name" type="text" id="name" name="name" value="">
+                formControlName="username" type="text" id="name" name="username" value="">
             </div>
             @if(registerForm.get('name')?.touched){
                 <div>
                     @if(registerForm.get('name')?.errors?.['required']){
                         <p class="error">
-                            Name is required!
+                            Username is required!
                         </p>
                     }
                     @if(registerForm.get('name')?.errors?.['minlength']){
                         <p class="error">
-                            Name must be at least 5 characters!
+                            Username must be at least 5 characters!
+                        </p>
+                    }
+                    @if(registerForm.get('name')?.errors?.['pattern']){
+                        <p class="error">
+                            Username must contain only latin letters and digits!
                         </p>
                     }
                 </div>

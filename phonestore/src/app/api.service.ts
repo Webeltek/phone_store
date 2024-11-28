@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment.development';
 import { Phone } from './types/phone';
 import { Message } from './types/message';
 
@@ -11,9 +10,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getPhones(limit?: Number){
-    const { apiUrl} = environment;
-    let url = `${apiUrl}/phones`;
+  getPhones(){
+    let url = `/api/phones`;
+    return this.http.get<Phone[]>(url);
+  }
+
+  getLatestPhones(limit?: Number){
+    let url = `/api/phones/latest`;
     if(limit){
       url += `?limit=${limit}`;
     }
@@ -21,18 +24,15 @@ export class ApiService {
   }
 
   getSinglePhone(id: string){
-    const { apiUrl} = environment;
-    return this.http.get<Phone>(`${apiUrl}/phones/${id}`)
+    return this.http.get<Phone>(`/api/phones/${id}`)
   }
 
   getMessages() {
-    const { apiUrl} = environment;
-    return this.http.get<Message[]>(`${apiUrl}/messages`);
+    return this.http.get<Message[]>(`/api/messages`);
   }
 
   createPhone(model: string,screenSize: string,price: string,image: string,phoneText: string){
-    const { apiUrl} = environment;
     const payload = { model, screenSize, price, image, phoneText}
-    return this.http.post<Phone>(`${apiUrl}/phones`,payload)
+    return this.http.post<Phone>(`/api/phones`,payload)
   }
 }

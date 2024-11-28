@@ -13,9 +13,8 @@ export interface User {
 
 export interface UserForAuth{
     id: string;
-    firstName: string;
+    username: string;
     email: string;
-    phoneNumber: string;
     password: string;
 }
 

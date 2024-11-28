@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit{
   constructor( private apiService: ApiService){}
 
   ngOnInit(): void {
-    this.apiService.getPhones().subscribe(phones =>{
+    this.apiService.getLatestPhones(5).subscribe(phones =>{
       this.phones = phones;
     })
   }
