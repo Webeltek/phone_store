@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Phone } from '../../types/phone';
 import { ProfileDetails, User } from '../../types/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { emailValidator } from '../../utils/email.validator';
 import { EMAIL_PREFIX_LENGTH } from '../../constants';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,10 +13,13 @@ import { EMAIL_PREFIX_LENGTH } from '../../constants';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
+  constructor(private apiService: ApiService){}
+
   user: User | null = null
   createdPhones: Phone[] = [];
   orderedPhones : Phone[] = [];
+
 
   isEditMode: boolean = false;
 
@@ -45,5 +49,15 @@ export class ProfileComponent {
   onCancel(event: Event){
     event.preventDefault()
     this.toggleEditMode()
+  }
+
+  ngOnInit(): void {
+    this.apiService.getOwnedPhones().subscribe(phones =>{
+      this.createdPhones = phones;
+    })
+
+    this.apiService.getOrderedPhones().subscribe(phones =>{
+      this.orderedPhones = phones;
+    })
   }
 }

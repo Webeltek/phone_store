@@ -15,6 +15,16 @@ export class ApiService {
     return this.http.get<Phone[]>(url);
   }
 
+  getOwnedPhones(){
+    let url = `/api/phones/owned`;
+    return this.http.get<Phone[]>(url);
+  }
+
+  getOrderedPhones(){
+    let url = `/api/phones/ordered`;
+    return this.http.get<Phone[]>(url);
+  }
+
   getLatestPhones(limit?: Number){
     let url = `/api/phones/latest`;
     if(limit){

@@ -13,6 +13,11 @@
             <div class="form-group">
                 <label for="model">Model:<span class="red">*</span></label>
                 <input
+                [class]="(
+                    (inputModel?.touched && inputModel?.errors?.['required'])
+                || 
+                    (inputModel?.touched && inputModel?.errors?.['minlength'] )
+                ) ? 'input-error' : ''"
                 ngModel 
                 #inputModel="ngModel"
                 required
@@ -36,6 +41,11 @@
             <div class="form-group">
                 <label for="screen-size">Screen Size:<span class="red">*</span></label>
                 <input
+                [class]="(
+                    (inputScreenSize?.touched && inputScreenSize?.errors?.['required'])
+                || 
+                    (inputScreenSize?.touched && inputScreenSize?.errors?.['minlenght'] )
+                ) ? 'input-error' : ''"
                 ngModel 
                 #inputScreenSize="ngModel"
                 required
@@ -59,6 +69,11 @@
             <div class="form-group">
                 <label for="price">Price:<span class="red">*</span></label>
                 <input
+                [class]="(
+                    (inputPrice?.touched && inputPrice?.errors?.['required'])
+                || 
+                    (inputPrice?.touched && inputPrice?.errors?.['posNumValidator'] )
+                ) ? 'input-error' : ''" 
                 ngModel 
                 #inputPrice="ngModel"
                 appPosNum 
@@ -76,6 +91,11 @@
             <div class="form-group">
                 <label for="image">Image:<span class="red">*</span></label>
                 <input
+                [class]="(
+                    (inputImage?.touched && inputImage?.errors?.['required'])
+                || 
+                    (inputImage?.touched && inputImage?.errors?.['pattern'] )
+                ) ? 'input-error' : ''" 
                 ngModel 
                 #inputImage="ngModel"
                 pattern="^https:\/\/.*$"
@@ -105,7 +125,12 @@
             </div> -->
             <div class="new-theme-content">
                 <label for="phoneText">Description <span class="red">*</span></label>
-                <textarea 
+                <textarea
+                [class]="(
+                    (inputPhoneText?.touched && inputPhoneText?.errors?.['required'])
+                || 
+                    (inputPhoneText?.touched && inputPhoneText?.errors?.['minlength'] )
+                ) ? 'input-error' : ''"  
                 type="text" 
                 name="description" 
                 id="postText" 

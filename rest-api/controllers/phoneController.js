@@ -35,7 +35,21 @@ function getPhones(req,res, next){
     .catch(next);
 }
 
+function getOwnedPhones(req,res, next){
+    const { _id: userId } = req.user;
+    phoneModel.find({ owner: userId}).then(phones => {
+        res.status(200).json(phones)
+    })
+    .catch(next);
+}
 
+function getOrderedPhones(req,res, next){
+    const { _id: userId } = req.user;
+    phoneModel.find({ orderList: { $in: [userId]}}).then(phones => {
+        res.status(200).json(phones)
+    })
+    .catch(next);
+}
 
 function createPhone(req, res, next) {
     const { _id: userId } = req.user;
@@ -62,7 +76,6 @@ function editPhone(req, res, next) {
     const { phoneId } = req.params;
     const phoneData = req.body;
     const { _id: userId } = req.user;
-    console.log('phoneId, userId' , phoneId, userId);
     
 
     // if the userId is not the same as this one of the phone, the phone will not be updated
@@ -83,7 +96,7 @@ function deletePhone(req, res, next) {
     const { _id: userId } = req.user;
 
     Promise.all([
-        phoneModel.findOneAndDelete({ _id: phoneId, userId }),
+        phoneModel.findOneAndDelete({ _id: phoneId, owner: userId }),
         userModel.findOneAndUpdate({ _id: userId }, { $pull: { phones: phoneId } }),
         messageModel.deleteMany({ phoneId: phoneId }),
     ])
@@ -112,6 +125,8 @@ module.exports = {
     getLatestPhones,
     getPhone,
     getPhones,
+    getOwnedPhones,
+    getOrderedPhones,
     createPhone,
     editPhone,
     deletePhone,
