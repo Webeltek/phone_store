@@ -10,33 +10,22 @@ export type RegUser = {username:string, email: string, password: string }
   providedIn: 'root'
 })
 export class UserService {
-  private user$$ = new BehaviorSubject<UserForAuth | undefined>(undefined);
+  private user$$ = new BehaviorSubject<UserForAuth | null>(null);
   private user$ = this.user$$.asObservable();
 
-  user : UserForAuth | null = null;
   USER_KEY = '[user]'  
+  user : UserForAuth | null = null;
 
   get isLogged(): boolean {
     return !!this.user;
   }
   constructor(private http: HttpClient) {
-
-    try {
-      const lsUser = localStorage.getItem(this.USER_KEY) || '';
-      this.user = JSON.parse(lsUser);
-    } catch (error) {
-      this.user = null;
-    }
+    this.user$.subscribe((user)=>{
+      this.user = user;
+    })
   }
 
   login(email: string, password: string){
-    // this.user = {
-    //   username: 'john',
-    //   email: 'john.doe@abv.bg',
-    //   password: '123123',
-    //   id: 'asdasdasd'
-    // }
-    // localStorage.setItem(this.USER_KEY,JSON.stringify(this.user))
 
     return this.http.post<UserForAuth>('/api/login', { email, password})
     .pipe(tap((user)=> this.user$$.next(user)))
@@ -44,8 +33,9 @@ export class UserService {
   }
 
   logout(){
-    this.user = null;
-    localStorage.removeItem(this.USER_KEY)
+    
+    return this.http.post('/api/logout',{})
+    .pipe(tap((user)=> this.user$$.next(null)))
   }
 
   register(username: string, email: string, password: string, rePassword:string){
@@ -54,6 +44,11 @@ export class UserService {
       email, 
       password, 
       rePassword})
+    .pipe(tap((user)=> this.user$$.next(user)))
+  }
+
+  getProfile(){
+    return this.http.get<UserForAuth>('/api/users/profile')
     .pipe(tap((user)=> this.user$$.next(user)))
   }
   

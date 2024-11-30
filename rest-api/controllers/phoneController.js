@@ -1,4 +1,5 @@
 const { userModel, themeModel, phoneModel } = require('../models');
+const { formidable } = require('formidable');
 
 function getLatestPhones(req, res, next) {
     const limit = Number(req.query.limit) || 0;
@@ -61,9 +62,11 @@ function editPhone(req, res, next) {
     const { phoneId } = req.params;
     const phoneData = req.body;
     const { _id: userId } = req.user;
+    console.log('phoneId, userId' , phoneId, userId);
+    
 
     // if the userId is not the same as this one of the phone, the phone will not be updated
-    phoneModel.findOneAndUpdate({ _id: phoneId, userId }, { ...phoneData }, { new: true })
+    phoneModel.findOneAndUpdate({ _id: phoneId, owner: userId }, { ...phoneData }, { new: true })
         .then(updatedPhone => {
             if (updatedPhone) {
                 res.status(200).json(updatedPhone);

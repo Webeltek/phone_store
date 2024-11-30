@@ -18,15 +18,5 @@ const messageSchema = new mongoose.Schema({
 
 const messageModel = mongoose.model('Message', messageSchema);
 
-messageModel.findOne({text: 'Message 1'}).then((doc=>{
-    if(!doc){
-        return messageModel.create({
-            text: 'Message 1',
-        })
-    }
-    return 'already created'
-})).then( msg =>{
-    console.log('Initial dummy message : ',msg)
-})
 
-module.exports = mongoose.model('Message', messageSchema);
+module.exports = messageModel;

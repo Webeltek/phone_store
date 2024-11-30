@@ -1,15 +1,15 @@
 
 
-<section class="create-hero">
+<section class="edit-hero">
     <div class="container">
-        <h2>Create New Product</h2>
-        <p>Fill in the details below to add a new product to the catalog.</p>
+        <h2>Edit Product</h2>
+        <p>Fill in the details below to edit a product to the catalog.</p>
     </div>
 </section>
 
-<section class="create-form">
+<section class="edit-form">
     <div class="container">
-        <form enctype="multipart/form-data" #form="ngForm" (ngSubmit)="addPhone(form)"> 
+        <form enctype="multipart/form-data" #form="ngForm" (ngSubmit)="editPhone(form)"> 
             <div class="form-group">
                 <label for="model">Model:<span class="red">*</span></label>
                 <input
@@ -40,7 +40,7 @@
                 #inputScreenSize="ngModel"
                 required
                 minlength="2" 
-                type="text" id="screen-size" name="screenSize" value="{{phone.screenSize}}">
+                type="text" id="screen-size" name="screenSize" value="{{phone?.screenSize}}">
             </div>
             @if(inputScreenSize?.touched){
                 <div>
@@ -62,7 +62,7 @@
                 ngModel 
                 #inputPrice="ngModel"
                 appPosNum 
-                type="number" id="price" name="price" value="{{phone.price}}">
+                type="number" id="price" name="price" value="{{phone?.price}}">
             </div>
             @if(inputPrice?.touched){
                 <div>
@@ -133,7 +133,7 @@
             </div>
             
             <button  [disabled]="form.invalid" class="btn"
-            [style]="{backgroundColor: form.invalid ? 'grey':'#0073e6'}">Create Product</button>
+            [style]="{backgroundColor: form.invalid ? 'grey':'#0073e6'}">Edit Product</button>
         </form>
     </div>
 </section>

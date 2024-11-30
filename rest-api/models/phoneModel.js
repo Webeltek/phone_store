@@ -54,19 +54,6 @@ phoneSchema.methods = {
 }
 
 const phoneModel = mongoose.model('Phone', phoneSchema);
-phoneModel.findOne({model: 'Mopd1'}).then((doc=>{
-    if(!doc){
-        return phoneModel.create({
-            model: 'Mopd1',
-            screenSize: '10inch',
-            description: 'Alab',
-            price: 100,
-            image: 'https://sdsdshshhg.com'
-        })
-    }
-    return 'already created'
-})).then( phone =>{
-    console.log('Initial dummy phone : ',phone)
-})
+
 
 module.exports =  phoneModel;

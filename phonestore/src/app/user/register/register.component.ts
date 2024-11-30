@@ -38,8 +38,8 @@ export class RegisterComponent {
   }
                   
   get isNotMinLength() {
-    return this.registerForm.get('name')?.touched 
-    && this.registerForm.get('name')?.errors?.['minlength'] 
+    return this.registerForm.get('username')?.touched 
+    && this.registerForm.get('username')?.errors?.['minlength'] 
   }
 
   get isEmailNotValid() {

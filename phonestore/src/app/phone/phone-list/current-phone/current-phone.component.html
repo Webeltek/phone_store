@@ -9,27 +9,28 @@
     <div class="container">
         <div class="product-details">
             <div class="product-image">
-                <img src="{{phone.image}}" alt="Laptop">
+                <img src="{{phone?.image}}" alt="Phone">
             </div>
             <div class="product-info">
-                <h3>Model: {{phone.model}}</h3>
-                <p><strong>Screen Size:</strong> {{phone.screenSize}} inches</p>
-                <p><strong>Price:</strong> ${{phone.price}}</p>
+                <h3>Model: {{phone?.model}}</h3>
+                <p><strong>Screen Size:</strong> {{phone?.screenSize}} inches</p>
+                <p><strong>Price:</strong> ${{phone?.price}}</p>
+                <p><strong>Description:</strong> {{phone?.description}}</p>
             </div>
         </div>
         @if(isAuthenticated){
             <div class="product-actions">
                 @if(isOwner){
-                <button class="btn edit"><a href="/phones/{{phone._id}}/edit">Edit</a></button>
-                <button class="btn delete"><a href="/phones/{{phone._id}}/delete">Delete</a></button>
-                }@else if (isPreferred){
-                <p class="prefer-message">You've already preferred this device</p>
+                <button class="btn edit"><a [routerLink]="['/phones',phone?._id, 'edit']">Edit</a></button>
+                <button class="btn delete"><a href="/phones/{{phone?._id}}/delete">Delete</a></button>
+                } @else if (isOrdered){
+                <p class="prefer-message">You've already orderred this device</p>
                 } @else {
-                <button class="btn prefer"><a href="/phones/{{phone._id}}/prefer">Prefer</a></button>
+                <button class="btn prefer"><a href="/phones/{{phone?._id}}/prefer">Order</a></button>
                 }
             </div>
-            @if(phone.msgList){
-                @for (msg of phone.msgList; track $index) {
+            @if(phone?.msgList){
+                @for (msg of phone?.msgList; track $index) {
                     <div class="comment">
                         <header class="header">
                             <p><span>{{msg.authorId.username}}</span> posted on <time>{{msg.created_at}}</time></p>
@@ -47,7 +48,7 @@
                     </div>
                 }
                 <div class="answer-comment">
-                    <p><span>currentUser</span> comment:</p>
+                    <p><span>{{username}}</span> comment:</p>
                     <div class="answer">
                         <form>
                             <textarea name="postText" id="comment" cols="30" rows="10"></textarea>

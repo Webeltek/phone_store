@@ -3,6 +3,7 @@ import { Phone } from '../../../types/phone';
 import { ApiService } from '../../../api.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PosNumDirective } from '../../../directives/posNum.directive';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-phone',
@@ -14,7 +15,7 @@ import { PosNumDirective } from '../../../directives/posNum.directive';
 export class AddPhoneComponent {
   phone = {} as Phone;
 
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService, private router: Router){}
 
   addPhone(form: NgForm){
     console.log(form.invalid);
@@ -23,9 +24,11 @@ export class AddPhoneComponent {
     if(form.invalid){
       return;
     }
-    
-    // this.apiService.createPhone(model,screenSize,price,image,phoneText).subscribe(data=>{
-    //   console.log(data);
-    // })
+
+    const { model,screenSize,price,image,description} = form.value;
+    this.apiService.createPhone(model,screenSize,price,image,description).subscribe(data=>{
+      //console.log(data);
+      this.router.navigate(['/phones'])
+    })
   }
 }

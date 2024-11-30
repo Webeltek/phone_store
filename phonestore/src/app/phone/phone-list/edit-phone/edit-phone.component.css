@@ -1,11 +1,11 @@
-.create-hero {
+.edit-hero {
     padding: 50px 0;
     text-align: center;
     color: #fff;
     margin-top: 80px;
 }
 
-.create-hero h2 {
+.edit-hero h2 {
     margin: 0 0 10px;
     font-size: 3rem;
     text-transform: uppercase;
@@ -13,14 +13,14 @@
     color: #ff9900;
 }
 
-.create-hero p {
+.edit-hero p {
     margin: 0 0 20px;
     font-size: 1.2rem;
     color: #0073e6;
     font-weight: bold;
 }
 
-.create-form .container {
+.edit-form .container {
     max-width: 600px;
     margin: 0 auto;
     background: #fff;
@@ -29,18 +29,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.create-form .form-group {
+.edit-form .form-group {
     margin-bottom: 15px;
 }
 
-.create-form label {
+.edit-form label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.create-form input[type="text"],
-.create-form input[type="file"] {
+.edit-form input[type="text"],
+.edit-form input[type="file"] {
     width: 96%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -48,7 +48,7 @@
     border-radius: 5px;
 }
 
-.create-form .btn {
+.edit-form .btn {
     width: 100%;
     padding: 15px;
     background: #0073e6;
@@ -60,36 +60,9 @@
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.create-form .btn:hover {
+.edit-form .btn:hover {
     background: #005bb5;
     transform: translateY(-5px);
-}
-
-.title, .new-theme-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.new-theme-content {
-    min-height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-.new-theme-content textarea {
-    width: 100%;
-    padding: 0.6em;
-    margin: 0;
-    border-radius: 0.3em;
-    border: 1px solid #999;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.new-theme-content label {
-    margin-bottom: 0.3em;
-    color: #234465;
-    font-weight: bold;
 }
 
 /* error */
@@ -104,4 +77,3 @@ p.error {
     border-left-color: red!important;
     border-color: red !important;
 }
-

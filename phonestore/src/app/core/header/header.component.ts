@@ -15,8 +15,8 @@ export class HeaderComponent {
 
   user : UserForAuth | null = null
 
-  get email(): string {
-    return this.userService.user?.email || ''
+  get username(): string {
+    return this.userService.user?.username || ''
   }
   
   get isAuthenticated(): boolean {
@@ -24,8 +24,10 @@ export class HeaderComponent {
   }
 
   logout(){
-    this.userService.logout()
-    this.router.navigate(['/home'])
+    this.userService.logout().subscribe(()=>{
+      this.router.navigate(['/login'])
+    })
+
   }
   
 }

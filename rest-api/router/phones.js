@@ -9,8 +9,10 @@ router.get('/', phoneController.getPhones);
 router.get('/latest', phoneController.getLatestPhones);
 router.post('/', auth(), phoneController.createPhone);
 router.get('/:phoneId', phoneController.getPhone);
+router.put('/:phoneId',auth(), phoneController.editPhone)
+router.delete('/:phoneId',auth(), phoneController.deletePhone)
 
-
+router.get('/:phoneId/messages', auth(), messageController.getLatestMessages);
 router.post('/:phoneId/messages', auth(), messageController.createMessage);
 router.put('/:phoneId/messages/:messageId', auth(), messageController.editMessage);
 router.delete('/:phoneId/messages/:messageId', auth(), messageController.deleteMessage);
