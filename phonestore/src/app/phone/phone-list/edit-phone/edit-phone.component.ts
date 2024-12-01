@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './edit-phone.component.css'
 })
 export class EditPhoneComponent {
-  phone = {} as Phone;
+  phone : Phone | null = {} as Phone;
 
   constructor(private apiService: ApiService, private router: Router,
     private activatedRoute: ActivatedRoute

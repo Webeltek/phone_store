@@ -12,6 +12,7 @@ router.get('/latest', phoneController.getLatestPhones);
 router.post('/', auth(), phoneController.createPhone);
 router.get('/:phoneId', phoneController.getPhone);
 router.put('/:phoneId',auth(), phoneController.editPhone)
+router.put('/:phoneId/order',auth(), phoneController.order)
 router.delete('/:phoneId',auth(), phoneController.deletePhone)
 
 router.get('/:phoneId/messages', auth(), messageController.getLatestMessages);

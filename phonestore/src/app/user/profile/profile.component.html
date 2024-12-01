@@ -87,7 +87,7 @@
                             alt="Laptop">
                         <p><strong>Price:</strong> {{phone.price}}</p>
                         <p><strong>Model:</strong> {{phone.model}}</p>
-                        <a href="/items/{{phone._id}}/details" class="btn">View Details</a>
+                        <a [routerLink]="['/phones', phone._id]" class="btn">View Details</a>
                     </div>
                 }
             }
@@ -111,7 +111,7 @@
                             alt="Laptop">
                         <p><strong>Price:</strong> {{phone.price}}</p>
                         <p><strong>Model:</strong> {{phone.model}}</p>
-                        <a href="/items/{{phone._id}}/details" class="btn">View Details</a>
+                        <a [routerLink]="['/phones', phone._id]" class="btn">View Details</a>
                     </div>
                 }
                 

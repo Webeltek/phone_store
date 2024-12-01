@@ -110,14 +110,14 @@ function deletePhone(req, res, next) {
         .catch(next);
 }
 
-function like(req, res, next) {
+function order(req, res, next) {
     const { phoneId } = req.params;
     const { _id: userId } = req.user;
 
-    console.log('like')
+    console.log('order')
 
-    phoneModel.updateOne({ _id: phoneId }, { $addToSet: { likes: userId } }, { new: true })
-        .then(() => res.status(200).json({ message: 'Liked successful!' }))
+    phoneModel.updateOne({ _id: phoneId }, { $addToSet: { orderList: userId } }, { new: true })
+        .then(() => res.status(200).json({ message: 'Order successful!' }))
         .catch(next)
 }
 
@@ -130,5 +130,5 @@ module.exports = {
     createPhone,
     editPhone,
     deletePhone,
-    like,
+    order,
 }

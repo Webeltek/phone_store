@@ -12,8 +12,9 @@ import { UserService } from '../../../user/user.service';
   styleUrl: './current-phone.component.css'
 })
 export class CurrentPhoneComponent implements OnInit{
-  isOrdered = false;
+
   phone  : Phone | null = null;
+  phoneId = '';
 
   constructor(private route: ActivatedRoute, 
     private apiService: ApiService,
@@ -30,23 +31,40 @@ export class CurrentPhoneComponent implements OnInit{
   }
 
   get isOwner() : boolean {
-    //console.log(this.phone?.owner, this.userService.user?._id);
-    
-    //console.log('isOwner: ',this.phone?.owner._id === this.userService.user?._id);
-    
     return this.phone?.owner === this.userService.user?._id
   }
 
+  get isOrdered() : boolean {
+    const hasOrdered = this.phone?.orderList.some((orderUserId) => orderUserId === this.userService.user?._id)
+    return !!hasOrdered
+  }
+
   ngOnInit(): void {
-    this.route.params.subscribe(data=>{
-      //console.log(data['phoneId']);
-      
-    })
+    this.phoneId = this.route.snapshot.params['phoneId'];
+    this.fetchPhone(this.phoneId);
 
+  }
 
-    const id = this.route.snapshot.params['phoneId'];
-    this.apiService.getSinglePhone(id).subscribe(phone=>{
+  fetchPhone(phoneId: string){
+    this.apiService.getSinglePhone(phoneId).subscribe(phone=>{
       this.phone = phone;
     })
+  }
+
+
+  orderPhone(){
+    if (this.isOrdered){
+      return
+    }
+    this.apiService.orderPhone(this.phoneId).subscribe(()=>{
+      this.fetchPhone(this.phoneId); 
+    })
+
+    console.log(this.isOrdered);
+    
+  }
+
+  deletePhone(){
+
   }
 }

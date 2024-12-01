@@ -50,4 +50,8 @@ export class ApiService {
     const payload = { model, screenSize, price, image, description}
     return this.http.put<Phone>(`/api/phones/${phoneId}`,payload)
   }
+
+  orderPhone(phoneId: string){
+    return this.http.put<Phone>(`/api/phones/${phoneId}/order`,{})
+  }
 }
