@@ -7,11 +7,11 @@
              <ng-container>
                  <div class="flex-prof">
                      <p>Username: </p>
-                     <p>{{profileDetails.username}}</p>
+                     <p>{{profileDetails?.username}}</p>
                  </div>
                  <div class="flex-prof">
                      <p>Email: </p>
-                     <p>{{profileDetails.email}}</p>
+                     <p>{{profileDetails?.email}}</p>
                  </div>
                 <div [style]="{ marginTop: '20px'}">
                      <button class="edit-button" (click)="toggleEditMode()">Edit</button>
@@ -24,7 +24,7 @@
                     <p>Username: </p>
                     <input 
                     formControlName="username"
-                    type="text" name="username" id="username" value="Johny">
+                    type="text" name="username" id="username" >
                 </div>
                 @if(form.get('username')?.touched){
                     <div>
@@ -44,7 +44,7 @@
                     <p>Email: </p>
                     <input
                     formControlName="email"
-                    type="email" name="email" id="email" value="john.doe@gmail.com">
+                    type="email" name="email" id="email" >
                 </div>
                 @if(form.get('email')?.touched){
                     <div>

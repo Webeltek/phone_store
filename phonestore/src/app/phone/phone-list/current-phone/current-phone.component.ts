@@ -3,17 +3,18 @@ import { Phone } from '../../../types/phone';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { UserService } from '../../../user/user.service';
+import { ElapsedTimePipe } from '../../../shared/pipes/elapsed-time.pipe';
 
 @Component({
   selector: 'app-current-phone',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ElapsedTimePipe],
   templateUrl: './current-phone.component.html',
   styleUrl: './current-phone.component.css'
 })
 export class CurrentPhoneComponent implements OnInit{
 
-  phone  : Phone | null = null;
+  phone = {} as Phone;
   phoneId = '';
 
   constructor(private route: ActivatedRoute, 
@@ -32,11 +33,11 @@ export class CurrentPhoneComponent implements OnInit{
   }
 
   get isOwner() : boolean {
-    return this.phone?.owner === this.userService.user?._id
+    return this.phone?.owner?.toString() === this.userService.user?._id
   }
 
   get isOrdered() : boolean {
-    const hasOrdered = this.phone?.orderList.some((orderUserId) => orderUserId === this.userService.user?._id)
+    const hasOrdered = this.phone?.orderList?.some((orderUserId) => orderUserId === this.userService.user?._id)
     return !!hasOrdered
   }
 

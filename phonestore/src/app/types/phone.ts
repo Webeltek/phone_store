@@ -10,5 +10,6 @@ export interface Phone {
     image: string,
     orderList: string[],
     owner: User,
-    msgList: Message[]
+    msgList: Message[],
+    created_at: string
 }

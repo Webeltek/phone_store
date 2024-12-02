@@ -16,7 +16,7 @@
                 }
             </ul>
             @if(isAuthenticated) {
-            <span>{{username}}</span>
+            <span>Username: {{username | slice : 12}}</span>
             }
     </nav>
          

@@ -10,7 +10,7 @@ export class ErrorMsgService {
 
   constructor() { }
 
-  setErrot(error: any): void {
+  setError(error: any): void {
     this.apiError$$.next(error)
   }
 }
