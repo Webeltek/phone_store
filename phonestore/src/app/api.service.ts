@@ -51,6 +51,10 @@ export class ApiService {
     return this.http.put<Phone>(`/api/phones/${phoneId}`,payload)
   }
 
+  deletePhone(phoneId: string){
+    return this.http.delete(`/api/phones/${phoneId}`);
+  }
+
   orderPhone(phoneId: string){
     return this.http.put<Phone>(`/api/phones/${phoneId}/order`,{})
   }

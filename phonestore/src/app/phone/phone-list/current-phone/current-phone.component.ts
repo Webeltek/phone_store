@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Phone } from '../../../types/phone';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { UserService } from '../../../user/user.service';
 
@@ -18,8 +18,9 @@ export class CurrentPhoneComponent implements OnInit{
 
   constructor(private route: ActivatedRoute, 
     private apiService: ApiService,
-    private userService: UserService){
-
+    private userService: UserService,
+    private router: Router){
+    
   }
 
   get isAuthenticated(): boolean {
@@ -65,6 +66,11 @@ export class CurrentPhoneComponent implements OnInit{
   }
 
   deletePhone(){
-
+    if(!this.isOwner){
+      return;
+    }
+    this.apiService.deletePhone(this.phoneId).subscribe(()=>{
+      this.router.navigate(['/phones'])
+    })
   }
 }

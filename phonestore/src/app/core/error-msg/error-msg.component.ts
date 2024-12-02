@@ -9,9 +9,13 @@ import { ErrorMsgService } from './error-msg.service';
   styleUrl: './error-msg.component.css'
 })
 export class ErrorMsgComponent  implements OnInit{
+  errorMsg = '';
   constructor(private errorMsgService: ErrorMsgService){}
 
   ngOnInit(): void {
     
+    this.errorMsgService.apiError$.subscribe( (err: any)=>{
+      this.errorMsg = err?.message;
+    })
   }
 }

@@ -1,4 +1,4 @@
-const { userModel, themeModel, phoneModel } = require('../models');
+const { userModel, messageModel, phoneModel } = require('../models');
 const { formidable } = require('formidable');
 
 function getLatestPhones(req, res, next) {
@@ -92,7 +92,7 @@ function editPhone(req, res, next) {
 }
 
 function deletePhone(req, res, next) {
-    const { phoneId, themeId } = req.params;
+    const { phoneId } = req.params;
     const { _id: userId } = req.user;
 
     Promise.all([
