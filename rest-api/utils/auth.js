@@ -30,7 +30,9 @@ function auth(redirectUnauthenticated = true) {
                     return;
                 }
                 if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
-                    console.error(err);
+                    if(req.url !== '/profile'){
+                        console.error(err);
+                    }
                     res
                         .status(401)
                         .send({ message: "Invalid token!" });
