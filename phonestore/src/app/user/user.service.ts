@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { UserForAuth } from '../types/user';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, Subscription, tap } from 'rxjs';
 
 export type RegUser = {username:string, email: string, password: string }
 
@@ -58,7 +58,11 @@ export class UserService implements OnDestroy{
 
   getProfile(){
     return this.http.get<UserForAuth>('/api/users/profile')
-    .pipe(tap((user)=> this.user$$.next(user)))
+    .pipe(
+      tap((user)=> {
+          this.user$$.next(user)
+        }
+      ))
   }
 
   ngOnDestroy(): void {

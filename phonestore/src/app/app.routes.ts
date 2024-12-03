@@ -10,10 +10,12 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { EditPhoneComponent } from './phone/phone-list/edit-phone/edit-phone.component';
 import { ErrorMsgComponent } from './core/error-msg/error-msg.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
     { path: '', redirectTo : '/home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
+    { path: 'about', component: AboutComponent},
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
     { path: 'phones', children: [ 

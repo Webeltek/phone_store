@@ -30,7 +30,7 @@
                 <button class="btn prefer"><a (click)="orderPhone()">Order</a></button>
                 }
             </div>
-            @if(phone.msgList){
+            @if(!isOwner){
                 @for (msg of phone.msgList; track $index) {
                     <div class="comment">
                         <header class="header">
