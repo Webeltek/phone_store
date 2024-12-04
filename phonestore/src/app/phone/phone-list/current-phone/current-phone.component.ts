@@ -4,11 +4,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { UserService } from '../../../user/user.service';
 import { ElapsedTimePipe } from '../../../shared/pipes/elapsed-time.pipe';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-current-phone',
   standalone: true,
-  imports: [RouterLink, ElapsedTimePipe],
+  imports: [RouterLink, ElapsedTimePipe, FormsModule],
   templateUrl: './current-phone.component.html',
   styleUrl: './current-phone.component.css'
 })
@@ -62,7 +63,7 @@ export class CurrentPhoneComponent implements OnInit{
       this.fetchPhone(this.phoneId); 
     })
 
-    console.log(this.isOrdered);
+    //console.log(this.isOrdered);
     
   }
 
@@ -72,6 +73,16 @@ export class CurrentPhoneComponent implements OnInit{
     }
     this.apiService.deletePhone(this.phoneId).subscribe(()=>{
       this.router.navigate(['/phones'])
+    })
+  }
+
+  handlePost(postForm: NgForm){
+    const { postText } = postForm.value;
+    
+    this.apiService.createMessage(this.phoneId, postText).subscribe(()=>{
+      this.fetchPhone(this.phoneId)
+      console.log({updatedPhoneWithMsg: this.phone});
+
     })
   }
 }

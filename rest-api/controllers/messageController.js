@@ -1,9 +1,11 @@
 const { userModel, phoneModel, messageModel } = require('../models');
 
 function newMessage(text, userId, phoneId) {
-    return messageModel.create({ text, userId, phoneId })
+    return messageModel.create({ text, authorId: userId, phoneId })
         .then(message => {
-            return phoneModel.findByIdAndUpdate({ _id: phoneId }, { $push: { messageList: message._id }}, { new: true })
+            console.log({newMessage : message});
+            
+            return phoneModel.findByIdAndUpdate({ _id: phoneId }, { $push: { msgList: message._id }}, { new: true })
         })
 }
 
@@ -21,7 +23,8 @@ function getLatestMessages(req, res, next) {
 }
 
 function getMessages(req, res, next){
-    messageModel.find()
+    const phoneId = req.params.phoneId;
+    messageModel.find({ phoneId})
     .then(messages =>{
         res.status(200).json(messages)
     })
@@ -32,9 +35,11 @@ function createMessage(req, res, next) {
     const { phoneId } = req.params;
     const { _id: userId } = req.user;
     const { messageText } = req.body;
+    console.log({messageText});
+    
 
     newMessage(messageText, userId, phoneId)
-        .then(([_, updatedTheme]) => res.status(200).json(updatedTheme))
+        .then(( updatedMsg) => res.status(200).json(updatedMsg))
         .catch(next);
 }
 

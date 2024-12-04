@@ -54,12 +54,11 @@ export class RegisterComponent {
   
   // TODO : modify 
   register(){
-    console.log(this.registerForm.value);
+    //console.log(this.registerForm.value);
     
     if(this.registerForm.invalid){
       return
     }
-    console.log(this.registerForm.value);
     
 
     const { 

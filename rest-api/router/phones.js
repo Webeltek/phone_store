@@ -15,10 +15,6 @@ router.put('/:phoneId',auth(), phoneController.editPhone)
 router.put('/:phoneId/order',auth(), phoneController.order)
 router.delete('/:phoneId',auth(), phoneController.deletePhone)
 
-router.get('/:phoneId/messages', auth(), messageController.getLatestMessages);
-router.post('/:phoneId/messages', auth(), messageController.createMessage);
-router.put('/:phoneId/messages/:messageId', auth(), messageController.editMessage);
-router.delete('/:phoneId/messages/:messageId', auth(), messageController.deleteMessage);
 
 // router.get('/my-trips/:id/reservations', auth(), phoneController.getReservations);
 

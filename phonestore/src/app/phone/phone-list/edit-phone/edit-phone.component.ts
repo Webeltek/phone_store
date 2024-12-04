@@ -20,8 +20,8 @@ export class EditPhoneComponent {
   ){}
 
   editPhone(form: NgForm){
-    console.log(form.invalid);
-    console.log(form.value);
+    //console.log(form.invalid);
+    //console.log(form.value);
 
     const phoneId = this.activatedRoute.snapshot.params['phoneId'];
     
@@ -31,7 +31,6 @@ export class EditPhoneComponent {
 
     const { model,screenSize,price,image,description} = form.value;
     this.apiService.editPhone(phoneId,model,screenSize,price,image,description).subscribe(data=>{
-      console.log(data);
       this.router.navigate(['/phones'])
     })
   }

@@ -18,8 +18,8 @@ export class AddPhoneComponent {
   constructor(private apiService: ApiService, private router: Router){}
 
   addPhone(form: NgForm){
-    console.log(form.invalid);
-    console.log(form.value);
+    //console.log(form.invalid);
+    //console.log(form.value);
     
     if(form.invalid){
       return;

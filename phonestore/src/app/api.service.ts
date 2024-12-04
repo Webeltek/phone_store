@@ -41,6 +41,12 @@ export class ApiService {
     return this.http.get<Message[]>(`/api/messages`);
   }
 
+  createMessage(phoneId:string,messageText:string){
+    console.log({messageText});
+    
+    return this.http.post(`/api/messages/${phoneId}`, { messageText })
+  }
+
   createPhone(model: string,screenSize: string,price: string,image: string,description: string){
     const payload = { model, screenSize, price, image, description}
     return this.http.post<Phone>(`/api/phones`,payload)

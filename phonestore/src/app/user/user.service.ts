@@ -20,23 +20,42 @@ export class UserService implements OnDestroy{
   get isLogged(): boolean {
     return !!this.user;
   }
+  
   constructor(private http: HttpClient) {
     this.userSubscription =  this.user$.subscribe((user)=>{
       this.user = user;
     })
   }
 
+  setUser(user: UserForAuth){
+    sessionStorage.setItem(this.USER_KEY,JSON.stringify(user))
+  }
+
+  getUser(){
+    return JSON.parse(sessionStorage.getItem(this.USER_KEY) || '')
+  }
+
+  clearUser(){
+    sessionStorage.removeItem(this.USER_KEY);
+  }
+
   login(email: string, password: string){
 
     return this.http.post<UserForAuth>('/api/login', { email, password})
-    .pipe(tap((user)=> this.user$$.next(user)))
+    .pipe(tap((user)=>{
+      this.setUser(user)
+      this.user$$.next(user)}))
     
   }
 
   logout(){
     
     return this.http.post('/api/logout',{})
-    .pipe(tap((user)=> this.user$$.next(null)))
+    .pipe(tap((user)=> {
+      this.clearUser()
+      this.user$$.next(null)
+    }
+    ))
   }
 
   register(username: string, email: string, password: string, rePassword:string){
@@ -45,7 +64,10 @@ export class UserService implements OnDestroy{
       email, 
       password, 
       rePassword})
-    .pipe(tap((user)=> this.user$$.next(user)))
+    .pipe(tap((user)=> {
+      this.setUser(user)
+      this.user$$.next(user)
+    }))
   }
 
   updateProfile(username: string, email:string){
@@ -60,6 +82,11 @@ export class UserService implements OnDestroy{
     return this.http.get<UserForAuth>('/api/users/profile')
     .pipe(
       tap((user)=> {
+          if(user){
+            this.setUser(user);
+          } else {
+            this.clearUser()
+          }
           this.user$$.next(user)
         }
       ))

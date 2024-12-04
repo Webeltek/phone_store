@@ -11,13 +11,14 @@ import { AuthGuard } from './guards/auth.guard';
 import { EditPhoneComponent } from './phone/phone-list/edit-phone/edit-phone.component';
 import { ErrorMsgComponent } from './core/error-msg/error-msg.component';
 import { AboutComponent } from './about/about.component';
+import { GuestGuard } from './guards/guest.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo : '/home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent},
     { path: 'about', component: AboutComponent},
-    { path: 'login', component: LoginComponent},
-    { path: 'register', component: RegisterComponent},
+    { path: 'login', component: LoginComponent, canActivate: [GuestGuard]},
+    { path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
     { path: 'phones', children: [ 
         { path: '', component: PhoneListComponent},
         { path: ':phoneId', component: CurrentPhoneComponent},

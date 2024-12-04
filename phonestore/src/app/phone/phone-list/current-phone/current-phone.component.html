@@ -30,20 +30,18 @@
                 <button class="btn prefer"><a (click)="orderPhone()">Order</a></button>
                 }
             </div>
-            @if(!isOwner){
+            @if(true){
                 @for (msg of phone.msgList; track $index) {
                     <div class="comment">
                         <header class="header">
-                            <p><span>{{msg.authorId.username}}</span> posted on <time>{{msg.created_at}}</time></p>
+                            <p><span>{{msg.authorId.username}}</span> posted <time>{{msg.created_at | elapsedTime}}</time></p>
                         </header>
                         <div class="comment-main">
                             <div class="userdetails">
-                                <img src="./profile.png" alt="avatar">
+                                <img src="/profile.png" alt="avatar">
                             </div>
                             <div class="post-content">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure facere sint dolorem quam,
-                                    accusantium ipsa veniam laudantium inventore aut, tenetur quibusdam doloribus. Incidunt odio
-                                    nostrum facilis ipsum dolorem deserunt illum?</p>
+                                <p>{{msg.text}}</p>
                             </div>
                         </div>
                     </div>
@@ -51,8 +49,13 @@
                 <div class="answer-comment">
                     <p><span>{{username}}</span> comment:</p>
                     <div class="answer">
-                        <form>
-                            <textarea name="postText" id="comment" cols="30" rows="10"></textarea>
+                        <form #postForm="ngForm" (ngSubmit)="handlePost(postForm)">
+                            <textarea
+                            ngModel
+                            #postText="ngModel"
+                            required
+                            minlength="10"
+                            name="postText" id="comment" cols="20" rows="5"></textarea>
                             <button>Post</button>
                         </form>
                     </div>
