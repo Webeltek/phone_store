@@ -23,7 +23,7 @@ export class RegisterComponent {
     email: new FormControl('',[Validators.required, emailValidator(EMAIL_PREFIX_LENGTH)]),
     //todo put Password in group
     passGroup: new FormGroup({
-      password: new FormControl('',[Validators.required,Validators.minLength(5)]),
+      password: new FormControl('',[Validators.required,Validators.minLength(5), Validators.pattern('[a-zA-Z0-9]+')]),
       rePassword : new FormControl('',[Validators.required])
     },
     {

@@ -33,7 +33,7 @@ export class CurrentPhoneComponent implements OnInit{
   }
 
   get isOwner() : boolean {
-    return this.phone?.owner?.toString() === this.userService.user?._id
+    return this.phone?.owner === this.userService.user?._id
   }
 
   get isOrdered() : boolean {

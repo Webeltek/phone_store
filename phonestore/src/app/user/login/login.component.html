@@ -47,11 +47,14 @@
                     (inputPassword?.touched && inputPassword?.errors?.['required'])
                 || 
                     (inputPassword?.touched && inputPassword?.errors?.['minlength'] )
+                || 
+                    (inputPassword?.touched && inputPassword?.errors?.['pattern'] )
                 ) ? 'input-error' : ''"
                 ngModel
                 #inputPassword="ngModel"
                 minlength="5"
-                required 
+                required
+                pattern="[a-zA-Z0-9]+" 
                 type="password" 
                 id="password" 
                 name="password">
@@ -66,6 +69,11 @@
                     @if(inputPassword?.errors?.['minlength']){
                         <p class="error">
                             Password must be at least 5 characters!
+                        </p>
+                    }
+                    @if(inputPassword?.errors?.['pattern']){
+                        <p class="error">
+                            Password must contains only latin letters and digits!
                         </p>
                     }
                 </div>

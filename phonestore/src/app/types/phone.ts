@@ -9,7 +9,7 @@ export interface Phone {
     price: number,
     image: string,
     orderList: string[],
-    owner: User,
+    owner: string,
     msgList: Message[],
     created_at: string
 }

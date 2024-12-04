@@ -28,16 +28,16 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
         // navigate to login
         router.navigate(['/login']);
       } else if (err.status === 401 && !userService.isLogged) {
-        // errorService.set
         
       } else {
+        // errorService.set
         errorMsgService.setError(err);
         router.navigate(['/error']);
 
       }
       
       //catchError returns array of errors
-      return throwError(()=>[err]);
+      return [err];
     })
   );
 };

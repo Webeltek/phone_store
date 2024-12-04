@@ -11,24 +11,24 @@
     <div class="container">
         <form  [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="form-group">
-                <label for="name">Username:</label>
+                <label for="username">Username:</label>
                 <input 
-                [class]="isFieldTextMissing('name') || isNotMinLength ? 'input-error' : ''"
-                formControlName="username" type="text" id="name" name="username" value="">
+                [class]="isFieldTextMissing('username') || isNotMinLength ? 'input-error' : ''"
+                formControlName="username" type="text" id="username" name="username" value="">
             </div>
-            @if(registerForm.get('name')?.touched){
+            @if(registerForm.get('username')?.touched){
                 <div>
-                    @if(registerForm.get('name')?.errors?.['required']){
+                    @if(registerForm.get('username')?.errors?.['required']){
                         <p class="error">
                             Username is required!
                         </p>
                     }
-                    @if(registerForm.get('name')?.errors?.['minlength']){
+                    @if(registerForm.get('username')?.errors?.['minlength']){
                         <p class="error">
                             Username must be at least 5 characters!
                         </p>
                     }
-                    @if(registerForm.get('name')?.errors?.['pattern']){
+                    @if(registerForm.get('username')?.errors?.['pattern']){
                         <p class="error">
                             Username must contain only latin letters and digits!
                         </p>
@@ -62,9 +62,13 @@
                     <input
                     [class]="(
                     (passGroup?.get('password')?.touched &&
-                    passGroup?.get('password')?.errors?.['required']) ||
+                    passGroup?.get('password')?.errors?.['required']) 
+                    ||
                     (passGroup?.get('password')?.touched &&
                     passGroup?.get('password')?.errors?.['minlength'])
+                    ||
+                    (passGroup?.get('password')?.touched &&
+                    passGroup?.get('password')?.errors?.['pattern'])
                     ) 
                     ? 'input-error' : ''" 
                     formControlName="password" type="password" id="password" name="password">
@@ -79,6 +83,11 @@
                         @if(registerForm.get('passGroup')?.get('password')?.errors?.['minlength']){
                             <p class="error">
                                 Password must be at least 5 characters!
+                            </p>
+                        }
+                        @if(registerForm.get('passGroup')?.get('password')?.errors?.['pattern']){
+                            <p class="error">
+                                Password must contain only latin letters and digits!
                             </p>
                         }
                     </div>

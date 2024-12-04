@@ -21,8 +21,6 @@ export class AuthenticateComponent implements OnInit{
         this.isAuthenticating = false;
       },
       error : (err) => {
-        console.log({err});
-        
         this.isAuthenticating = false
       },
       complete: ()=>{
