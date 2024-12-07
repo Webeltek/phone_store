@@ -7,6 +7,8 @@ export const GuestGuard: CanActivateFn =
 (route: ActivatedRouteSnapshot, state: RouterStateSnapshot)=>{
     const userService = inject(UserService);
     const router = inject(Router)
+    //const hasUser = userService.isLogged;
+
     const user = sessionStorage.getItem(userService.USER_KEY);
     const hasUser = !!user ? true : false;
 

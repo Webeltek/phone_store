@@ -28,15 +28,16 @@ export class UserService implements OnDestroy{
     })
   }
 
-  setUser(user: UserForAuth){
-    sessionStorage.setItem(this.USER_KEY,JSON.stringify(user))
+  setSessUser(user: UserForAuth){
+    const { _id, username } = user
+    sessionStorage.setItem(this.USER_KEY,JSON.stringify({ _id, username }))
   }
 
-  getUser(){
+  getSessUser(){
     return JSON.parse(sessionStorage.getItem(this.USER_KEY) || '')
   }
 
-  clearUser(){
+  clearSessUser(){
     sessionStorage.removeItem(this.USER_KEY);
   }
 
@@ -44,7 +45,7 @@ export class UserService implements OnDestroy{
 
     return this.http.post<UserForAuth>('/api/login', { email, password})
     .pipe(tap((user)=>{
-      this.setUser(user)
+      this.setSessUser(user)
       this.user$$.next(user)}))
     
   }
@@ -53,7 +54,7 @@ export class UserService implements OnDestroy{
     
     return this.http.post('/api/logout',{})
     .pipe(tap((user)=> {
-      this.clearUser()
+      this.clearSessUser()
       this.user$$.next(null)
     }
     ))
@@ -66,7 +67,7 @@ export class UserService implements OnDestroy{
       password, 
       rePassword})
     .pipe(tap((user)=> {
-      this.setUser(user)
+      this.setSessUser(user)
       this.user$$.next(user)
     }))
   }
@@ -84,9 +85,9 @@ export class UserService implements OnDestroy{
     .pipe(
       tap((user)=> {
           if(user){
-            this.setUser(user);
+            this.setSessUser(user);
           } else {
-            this.clearUser()
+            this.clearSessUser()
           }
           this.user$$.next(user)
         }
