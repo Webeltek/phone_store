@@ -112,9 +112,7 @@ function editPhone(req, res, next) {
     const { _id: userId } = req.user;
 
     const uploadDir = path.join(__dirname, '../uploads');
-    if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir);
-    }
+    
     const form = formidable({
         uploadDir,
         keepExtensions: true
@@ -189,6 +187,20 @@ function deletePhone(req, res, next) {
     ])
         .then(([deletedOne, _, __]) => {
             if (deletedOne) {
+                const imageFilePath = uploadDir + '/'+ deletedOne.imageFile;
+                console.log({imageFilePath: imageFilePath})
+                if (fs.existsSync(imageFilePath)) {
+                    fs.unlink(imageFilePath, (err) => {
+                    if (err) {
+                        console.error('Error deleting file:', err);
+                        return;
+                    }
+                    console.log('File deleted successfully!');
+                    });
+                } else {
+                    console.log('File does not exist.');
+                }
+
                 res.status(200).json(deletedOne)
             } else {
                 res.status(401).json({ message: `Not allowed!` });
