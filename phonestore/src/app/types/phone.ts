@@ -8,6 +8,7 @@ export interface Phone {
     description: string,
     price: number,
     image: string,
+    imageFile?: string,
     orderList: string[],
     owner: string,
     msgList: Message[],

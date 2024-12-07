@@ -32,6 +32,10 @@ const phoneSchema = new Schema({
         required:true,
         validate : /https?:\/\// 
     },
+    imageFile: {
+        type: String,
+        required: false,
+    },
     orderList: [{
         type: Types.ObjectId,
         ref: 'User'

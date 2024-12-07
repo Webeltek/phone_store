@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Phone } from '../types/phone';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
+import { IMAGES_URL } from '../constants';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,8 @@ import { ApiService } from '../api.service';
 })
 export class HomeComponent implements OnInit{
   phones : Phone[] = []
+  imagesUrl = IMAGES_URL;
+
   constructor( private apiService: ApiService){}
 
   ngOnInit(): void {

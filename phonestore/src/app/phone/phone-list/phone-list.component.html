@@ -13,8 +13,10 @@
             @if(phones.length>0){
                 @for (phone of phones; track $index) {
                 <div class="product-item">
-                    <img
-                        src="{{phone.image}}">
+                    @if(phone.imageFile){
+                        <img src="{{imagesUrl}}{{phone.imageFile}}" alt="Phone">
+                    }
+                    <img src="{{phone.image}}">
                     <h3>{{phone.model}}</h3>
                     <h2>${{phone.price}}</h2>
                     <p>Description: {{phone.description}}</p>

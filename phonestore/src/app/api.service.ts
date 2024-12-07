@@ -47,14 +47,14 @@ export class ApiService {
     return this.http.post(`/api/messages/${phoneId}`, { messageText })
   }
 
-  createPhone(model: string,screenSize: string,price: string,image: string,description: string){
-    const payload = { model, screenSize, price, image, description}
-    return this.http.post<Phone>(`/api/phones`,payload)
+  createPhone(formData: FormData){
+    //const payload = { model, screenSize, price, image, description}
+    return this.http.post<Phone>(`/api/phones`,formData)
   }
 
-  editPhone(phoneId: string,model: string,screenSize: string,price: string,image: string,description: string){
-    const payload = { model, screenSize, price, image, description}
-    return this.http.put<Phone>(`/api/phones/${phoneId}`,payload)
+  editPhone(phoneId: string,formData: FormData){
+    //const payload = { model, screenSize, price, image, description}
+    return this.http.put<Phone>(`/api/phones/${phoneId}`,formData)
   }
 
   deletePhone(phoneId: string){

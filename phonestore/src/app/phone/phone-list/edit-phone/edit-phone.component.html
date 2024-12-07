@@ -18,11 +18,11 @@
                 || 
                     (inputModel?.touched && inputModel?.errors?.['minlength'] )
                 ) ? 'input-error' : ''"
-                ngModel 
+                [(ngModel)]="phone.model" 
                 #inputModel="ngModel"
                 required
                 minlength="5"
-                type="text" id="model" name="model" value="{{phone?.model}}">
+                type="text" id="model" name="model" >
             </div>
             @if(inputModel?.touched){
                 <div>
@@ -46,11 +46,11 @@
                 || 
                     (inputScreenSize?.touched && inputScreenSize?.errors?.['minlenght'] )
                 ) ? 'input-error' : ''"
-                ngModel 
+                [(ngModel)]="phone.screenSize" 
                 #inputScreenSize="ngModel"
                 required
                 minlength="2" 
-                type="text" id="screen-size" name="screenSize" value="{{phone?.screenSize}}">
+                type="text" id="screen-size" name="screenSize">
             </div>
             @if(inputScreenSize?.touched){
                 <div>
@@ -74,10 +74,10 @@
                 || 
                     (inputPrice?.touched && inputPrice?.errors?.['posNumValidator'] )
                 ) ? 'input-error' : ''" 
-                ngModel 
+                [(ngModel)]="phone.price" 
                 #inputPrice="ngModel"
                 appPosNum 
-                type="number" id="price" name="price" value="{{phone?.price}}">
+                type="number" id="price" name="price">
             </div>
             @if(inputPrice?.touched){
                 <div>
@@ -89,13 +89,14 @@
                 </div>
             }
             <div class="form-group">
-                <label for="image">Image:<span class="red">*</span></label>
+                <label for="image">Image Link:<span class="red">*</span></label>
                 <input
                 [class]="(
                     (inputImage?.touched && inputImage?.errors?.['required'])
                 || 
                     (inputImage?.touched && inputImage?.errors?.['pattern'] )
-                ) ? 'input-error' : ''" 
+                ) ? 'input-error' : ''"
+                [(ngModel)]="phone.image" 
                 ngModel 
                 #inputImage="ngModel"
                 pattern="^https:\/\/.*$"
@@ -116,13 +117,23 @@
                     }
                 </div>
             }
-            <!-- <div class="form-group">
-                <label for="image">Image File:<span class="red">*</span></label>
+            <div class="form-group">
+                <label for="imageFile">Image File:</label>
                 <input
-                ngModel 
-                #inputImageFile="ngModel" 
-                type="file" id="imageFile" name="imageFile" >
-            </div> -->
+                [class]="fileError ? 'input-error' : ''" 
+                type="file" id="imageFile" name="imageFile" 
+                (change)="onFileSelected($event)"
+                (blur)="onFileTouched()">
+                @if(fileTouched){
+                    <div>
+                        @if(fileError){
+                            <p class="error">
+                                {{fileError}}
+                            </p>
+                        }
+                    </div>
+                }
+            </div>
             <div class="new-theme-content">
                 <label for="phoneText">Description <span class="red">*</span></label>
                 <textarea
@@ -136,7 +147,7 @@
                 id="postText" 
                 rows="5" 
                 class="height"
-                ngModel
+                [(ngModel)]="phone.description"
                 #inputPhoneText="ngModel"
                 minlength="10"
                 required
@@ -157,8 +168,8 @@
                 }
             </div>
             
-            <button  [disabled]="form.invalid" class="btn"
-            [style]="{backgroundColor: form.invalid ? 'grey':'#0073e6'}">Edit Product</button>
+            <button  [disabled]="form.invalid " class="btn"
+            [style]="{backgroundColor: (form.invalid) ? 'grey':'#0073e6'}">Edit Product</button>
         </form>
     </div>
 </section>

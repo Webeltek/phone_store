@@ -126,7 +126,8 @@
   margin-top: 1em;
   border: 1px solid #999;
   border-radius: 0.5em;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 1em;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -134,8 +135,9 @@
 
 .comment header p {
   padding: 0.5em;
-  text-align: center;
-  background-color: #234465;
+  
+  background-color: #0073e6;
+  border-radius: 5px;
   border-bottom: 1px dashed #999;
   color: white;
 }
@@ -218,7 +220,6 @@
 }
 
 .answer button {
-  background-color: #234465;
   color: white;
   margin: 0.5em 1em;
   padding: 0.4em 1.2em;
@@ -234,5 +235,18 @@
 
 .comment-area {
   min-width: 100%;
+}
+
+/* error */
+p.error {
+  text-align: left;
+  border-radius: 0.5em;
+  color: red!important;
+  padding-top: 0;
+  font-weight: bold;
+}
+.input-error {
+  border-left-color: red!important;
+  border-color: red !important;
 }
   

@@ -13,7 +13,7 @@
                      <p>Email: </p>
                      <p>{{profileDetails.email}}</p>
                  </div>
-                <div [style]="{ marginTop: '20px'}">
+                <div [style]="{ marginTop: '0px'}">
                      <button class="edit-button" (click)="toggleEditMode()">Edit</button>
                  </div>
              </ng-container>
@@ -83,6 +83,9 @@
             @if(createdPhones.length >0){
                 @for (phone of createdPhones; track $index) {
                     <div class="laptop-item">
+                        @if(phone.imageFile){
+                            <img src="{{imagesUrl}}{{phone.imageFile}}" alt="Phone">
+                        }
                         <img src="{{phone.image}}"
                             alt="Laptop">
                         <p><strong>Price:</strong> {{phone.price}}</p>
@@ -107,8 +110,10 @@
             @if(orderedPhones.length >0){
                 @for (phone of orderedPhones; track $index) {
                     <div class="laptop-item">
-                        <img src="{{phone.image}}"
-                            alt="Laptop">
+                        @if(phone.imageFile){
+                            <img src="{{imagesUrl}}{{phone.imageFile}}" alt="Phone">
+                        }
+                        <img src="{{phone.image}}" alt="Laptop">
                         <p><strong>Price:</strong> {{phone.price}}</p>
                         <p><strong>Model:</strong> {{phone.model}}</p>
                         <a [routerLink]="['/phones', phone._id]" class="btn">View Details</a>

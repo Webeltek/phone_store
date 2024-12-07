@@ -5,6 +5,7 @@ import { ApiService } from '../../../api.service';
 import { UserService } from '../../../user/user.service';
 import { ElapsedTimePipe } from '../../../shared/pipes/elapsed-time.pipe';
 import { FormsModule, NgForm } from '@angular/forms';
+import { IMAGES_URL } from '../../../constants';
 
 @Component({
   selector: 'app-current-phone',
@@ -17,6 +18,7 @@ export class CurrentPhoneComponent implements OnInit{
 
   phone = {} as Phone;
   phoneId = '';
+  imagesUrl = IMAGES_URL;
 
   constructor(private route: ActivatedRoute, 
     private apiService: ApiService,
@@ -45,12 +47,13 @@ export class CurrentPhoneComponent implements OnInit{
   ngOnInit(): void {
     this.phoneId = this.route.snapshot.params['phoneId'];
     this.fetchPhone(this.phoneId);
-
+    
   }
-
+  
   fetchPhone(phoneId: string){
     this.apiService.getSinglePhone(phoneId).subscribe(phone=>{
       this.phone = phone;
+      //console.log({currPhone: this.phone});
     })
   }
 

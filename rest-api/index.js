@@ -14,10 +14,15 @@ dbConnector()
     const app = require('express')();
     require('./config/express')(app);
 
+
     app.use(cors({
       origin: config.origin,
       credentials: true
     }));
+
+    const express = require('express');
+
+    app.use('/uploads', express.static('uploads'))
 
     app.use('/api', apiRouter);
 

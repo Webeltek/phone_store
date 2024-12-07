@@ -10,6 +10,9 @@
         <div class="product-details">
             <p>Created: {{phone!.created_at | elapsedTime}}</p>
             <div class="product-image">
+                @if(phone.imageFile){
+                    <img src="{{imagesUrl}}{{phone.imageFile}}" alt="Phone">
+                }
                 <img src="{{phone.image}}" alt="Phone">
             </div>
             <div class="product-info">
@@ -34,7 +37,9 @@
                 @for (msg of phone.msgList; track $index) {
                     <div class="comment">
                         <header class="header">
-                            <p><span>{{msg.authorId.username}}</span> posted <time>{{msg.created_at | elapsedTime}}</time></p>
+                            <p>
+                                <span>{{isOwner ? 'Owner::': ''}} </span>
+                                <span>{{msg.authorId.username}}</span> posted <time>{{msg.created_at | elapsedTime}}</time></p>
                         </header>
                         <div class="comment-main">
                             <div class="userdetails">
@@ -51,12 +56,32 @@
                     <div class="answer">
                         <form #postForm="ngForm" (ngSubmit)="handlePost(postForm)">
                             <textarea
+                            [class]="(
+                                (postText?.touched && postText?.errors?.['required'])
+                            || 
+                                (postText?.touched && postText?.errors?.['minlenght'] )
+                            ) ? 'input-error' : ''"
                             ngModel
                             #postText="ngModel"
                             required
                             minlength="10"
                             name="postText" id="comment" cols="20" rows="5"></textarea>
-                            <button>Post</button>
+                            @if(postText?.touched){
+                                <div>
+                                    @if(postText?.errors?.['required']){
+                                        <p class="error">
+                                            Comment is required!
+                                        </p>
+                                    }
+                                    @if(postText?.errors?.['minlength']){
+                                        <p class="error">
+                                            Comment must be at least 10 characters!
+                                        </p>
+                                    }
+                                </div>
+                            }
+                            <button [disabled]="postForm.invalid" class="btn"
+                            [style]="{backgroundColor: postForm.invalid ? 'grey':'#0073e6'}">Post</button>
                         </form>
                     </div>
                 </div>

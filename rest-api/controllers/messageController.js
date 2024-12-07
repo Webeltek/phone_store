@@ -3,7 +3,6 @@ const { userModel, phoneModel, messageModel } = require('../models');
 function newMessage(text, userId, phoneId) {
     return messageModel.create({ text, authorId: userId, phoneId })
         .then(message => {
-            console.log({newMessage : message});
             
             return phoneModel.findByIdAndUpdate({ _id: phoneId }, { $push: { msgList: message._id }}, { new: true })
         })
@@ -35,7 +34,6 @@ function createMessage(req, res, next) {
     const { phoneId } = req.params;
     const { _id: userId } = req.user;
     const { messageText } = req.body;
-    console.log({messageText});
     
 
     newMessage(messageText, userId, phoneId)

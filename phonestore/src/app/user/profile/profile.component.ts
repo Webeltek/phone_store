@@ -3,7 +3,7 @@ import { Phone } from '../../types/phone';
 import { ProfileDetails, User, UserForAuth } from '../../types/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { emailValidator } from '../../utils/email.validator';
-import { EMAIL_PREFIX_LENGTH } from '../../constants';
+import { EMAIL_PREFIX_LENGTH, IMAGES_URL } from '../../constants';
 import { ApiService } from '../../api.service';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit{
 
   createdPhones: Phone[] = [];
   orderedPhones : Phone[] = [];
+  imagesUrl = IMAGES_URL;
 
 
   isEditMode: boolean = false;

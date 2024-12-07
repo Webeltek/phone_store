@@ -11,7 +11,7 @@ export type RegUser = {username:string, email: string, password: string }
 })
 export class UserService implements OnDestroy{
   private user$$ = new BehaviorSubject<UserForAuth | null>(null);
-  private user$ = this.user$$.asObservable();
+  public user$ = this.user$$.asObservable();
 
   USER_KEY = '[user]'  
   user : UserForAuth | null = null;
@@ -20,6 +20,7 @@ export class UserService implements OnDestroy{
   get isLogged(): boolean {
     return !!this.user;
   }
+
   
   constructor(private http: HttpClient) {
     this.userSubscription =  this.user$.subscribe((user)=>{

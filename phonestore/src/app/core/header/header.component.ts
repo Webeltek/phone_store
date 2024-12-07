@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../user/user.service';
 import { UserForAuth } from '../../types/user';
 import { SlicePipe } from '../../shared/pipes/slice.pipe';
@@ -7,7 +7,7 @@ import { SlicePipe } from '../../shared/pipes/slice.pipe';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, SlicePipe],
+  imports: [RouterLink,RouterLinkActive, SlicePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

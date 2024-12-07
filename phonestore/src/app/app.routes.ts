@@ -23,13 +23,13 @@ export const routes: Routes = [
         { path: '', component: PhoneListComponent},
         { path: ':phoneId', component: CurrentPhoneComponent},
         { path: ':phoneId/edit', component: EditPhoneComponent, canActivate: [AuthGuard]}
-        ] 
+    ] 
     },
-    { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard]},
     { path: 'add-phone', canActivate: [AuthGuard],
         loadComponent : ()=> import('./phone/phone-list/add-phone/add-phone.component')
         .then((c)=> c.AddPhoneComponent)
     },
+    { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard]},
 
     { path: 'error', component: ErrorMsgComponent},
     { path: '404', component: PageNotFoundComponent},
