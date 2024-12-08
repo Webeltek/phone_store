@@ -3,20 +3,20 @@
         <h1>PhoneStore</h1>
         <nav>
             <ul>
-                <li><a routerLink="/">Home</a></li>
-                <li><a routerLink="/phones">Catalog</a></li>
-                <li><a routerLink="/about">About</a></li>
+                <li><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+                <li><a routerLink="/phones" routerLinkActive="active-link">Catalog</a></li>
+                <li><a routerLink="/about" routerLinkActive="active-link">About</a></li>
                 @if(isAuthenticated){
-                <li><a routerLink="/profile">Profile</a></li>
-                <li><a routerLink="/add-phone">Add Phone</a></li>
+                <li><a routerLink="/profile" routerLinkActive="active-link">Profile</a></li>
+                <li><a routerLink="/add-phone" routerLinkActive="active-link">Add Phone</a></li>
                 <li><a (click)="logout()">Logout</a></li>
                 } @else {
-                <li><a routerLink="/login">Login</a></li>
-                <li><a routerLink="/register">Register</a></li>
+                <li><a routerLink="/login" routerLinkActive="active-link">Login</a></li>
+                <li><a routerLink="/register" routerLinkActive="active-link">Register</a></li>
                 }
             </ul>
             @if(isAuthenticated) {
-            <span>Username: {{username | slice : 12}}</span>
+                <span>Username: {{username | slice : 12}}</span>
             }
     </nav>
          

@@ -157,7 +157,7 @@ function editPhone(req, res, next) {
             // if the userId is not the same as this one of the phone, the phone will not be updated
             phoneModel.findOneAndUpdate(
                 { _id: phoneId, owner: userId }, 
-                { model, screenSize, description, price: Number(price),image , owner: userId }, 
+                { model, screenSize, description, price: Number(price),image ,imageFile: '', owner: userId }, 
                 { new: true })
                 .then(updatedPhone => {
                     if (updatedPhone) {

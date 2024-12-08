@@ -41,6 +41,14 @@ header {
     transition: color 0.3s ease, transform 0.3s ease;
   }
 
+  .active-link{
+    background-color: #d8cd33;
+    border-radius: 5px;
+    padding: 5px 3px;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
   
   nav ul li a:hover {
     color: rgb(134, 134, 34);
