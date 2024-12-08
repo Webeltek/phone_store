@@ -8,4 +8,7 @@
 
 * The application has the following public views: Home, Catalog, Phone  Details , About, Login, Register.
 * The private views available for registered users are: Profile, Add Phone, Phone details with Edit and Delete buttons or Order button if user is
-not the owner of the phone.    
+not the owner of the phone.
+
+Home: 
+    - in the home view are listed the last 5 added phones from every user

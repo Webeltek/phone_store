@@ -4,11 +4,12 @@ import { Phone } from '../types/phone';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 import { IMAGES_URL } from '../constants';
+import { ElapsedTimePipe } from '../shared/pipes/elapsed-time.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ElapsedTimePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

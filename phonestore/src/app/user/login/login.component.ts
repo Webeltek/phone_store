@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EMAIL_PREFIX_LENGTH } from '../../constants';
 import { EmailDirective } from '../../directives/email.directive';
+import { ErrorMsgService } from '../../core/error-msg/error-msg.service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,25 @@ import { EmailDirective } from '../../directives/email.directive';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  errorMsg = signal('');
   emailPrefixLength = EMAIL_PREFIX_LENGTH;
+
+
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private errorMsgService: ErrorMsgService
   ){}
+
+  ngOnInit(): void {
+    this.errorMsgService.apiError$.subscribe( (err: any)=>{
+      //console.log({errorMgComp: err});
+      if(err?.error.message !== 'Invalid token!'){
+        this.errorMsg.set(err?.error.message);
+      }
+    })
+  }
 
   login(form: NgForm){
     if(form.invalid){

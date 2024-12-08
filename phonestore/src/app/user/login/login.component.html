@@ -1,4 +1,6 @@
-<p>login works!</p>
+@if(errorMsg()){
+    <p class="notification error-message">{{errorMsg()}}</p>
+}
 <section class="login-hero">
     <div class="container">
         <h2>Login to Your Account</h2>

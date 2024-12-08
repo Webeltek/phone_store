@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
 import { EMAIL_PREFIX_LENGTH } from '../../constants';
 import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
 import { RegUser, UserService } from '../user.service';
+import { ErrorMsgService } from '../../core/error-msg/error-msg.service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +14,22 @@ import { RegUser, UserService } from '../user.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
+  errorMsg = signal('');
+
   constructor(
     private userService: UserService,
-    private router: Router){}
+    private router: Router,
+    private errorMsgService : ErrorMsgService){}
+
+  ngOnInit(): void {
+    this.errorMsgService.apiError$.subscribe( (err: any)=>{
+      //console.log({errRegComp: err});
+      if(err?.status !== 401){
+        this.errorMsg.set(err?.error.message);
+      }
+    })
+  }  
 
   registerForm = new FormGroup({
     username: new FormControl('',[Validators.required,Validators.minLength(5),Validators.pattern('[a-zA-Z0-9]+')]),

@@ -17,6 +17,7 @@
                             <img src="{{imagesUrl}}{{phone.imageFile}}" alt="Phone">
                         }
                         <img src="{{phone.image}}">
+                        <p>Added: {{phone.created_at | elapsedTime}}</p>
                         <h3> {{phone.model}}</h3>
                         <p>${{phone.price}}</p>
                         <a [routerLink]="['/phones',phone._id]" class="btn">View Details</a>
