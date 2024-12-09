@@ -190,16 +190,16 @@ function deletePhone(req, res, next) {
             if (deletedOne) {
                 const imageFilePath = uploadDir + '/'+ deletedOne.imageFile;
                 console.log({imageFilePath: imageFilePath})
-                if (fs.existsSync(imageFilePath)) {
+                if (fs.existsSync(imageFilePath) && deletedOne.imageFile) {
                     fs.unlink(imageFilePath, (err) => {
                     if (err) {
                         console.error('Error deleting file:', err);
                         return;
                     }
-                    console.log('File deleted successfully!');
+                    console.log('Phone and image file deleted successfully!');
                     });
                 } else {
-                    console.log('File does not exist.');
+                    console.log('Phone without image file deleted successfuly!');
                 }
 
                 res.status(200).json(deletedOne)
