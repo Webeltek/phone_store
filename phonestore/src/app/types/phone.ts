@@ -10,7 +10,7 @@ export interface Phone {
     image: string,
     imageFile?: string,
     orderList: string[],
-    owner: string,
+    owner: User,
     msgList: Message[],
     created_at: string
 }

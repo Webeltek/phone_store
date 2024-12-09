@@ -36,7 +36,7 @@ export class CurrentPhoneComponent implements OnInit{
   }
 
   get isOwner() : boolean {
-    return this.phone?.owner === this.userService.user?._id
+    return this.phone?.owner?._id === this.userService.user?._id
   }
 
   get isOrdered() : boolean {
@@ -54,6 +54,8 @@ export class CurrentPhoneComponent implements OnInit{
     this.apiService.getSinglePhone(phoneId).subscribe(phone=>{
       this.phone = phone;
       //console.log({currPhone: this.phone});
+      //console.log({currPhoneMsgList: this.phone.msgList});
+      
     })
   }
 
@@ -84,7 +86,7 @@ export class CurrentPhoneComponent implements OnInit{
     
     this.apiService.createMessage(this.phoneId, postText).subscribe(()=>{
       this.fetchPhone(this.phoneId)
-      console.log({updatedPhoneWithMsg: this.phone});
+      //console.log({updatedPhoneWithMsg: this.phone});
 
     })
   }

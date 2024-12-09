@@ -42,7 +42,7 @@ export class ApiService {
   }
 
   createMessage(phoneId:string,messageText:string){
-    console.log({messageText});
+    //console.log({messageText});
     
     return this.http.post(`/api/messages/${phoneId}`, { messageText })
   }

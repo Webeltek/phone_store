@@ -38,7 +38,7 @@
                     <div class="comment">
                         <header class="header">
                             <p>
-                                <span>{{isOwner ? 'Owner::': ''}} </span>
+                                <span>{{msg.authorId._id === phone.owner._id ? 'Owner::': ''}} </span>
                                 <span>{{msg.authorId.username}}</span> posted <time>{{msg.created_at | elapsedTime}}</time></p>
                         </header>
                         <div class="comment-main">

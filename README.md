@@ -7,7 +7,7 @@
  - angular application is configured on port 4300 and is accessible on http://localhost:4300
 
 * The application has the following public views: Home, Catalog, Phone  Details , About, Login, Register.
-* The private views available for registered users are: Profile, Add Phone, Phone details with Edit and Delete buttons or Order button if user is
+* The private views available for registered users are: Profile, Add Phone , Edit Phone , Phone details  with Edit and Delete buttons or Order button if user is
 not the owner of the phone.
 
 1. Home: 

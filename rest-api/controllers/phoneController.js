@@ -24,6 +24,7 @@ function getPhone(req,res, next){
             path: 'authorId'
         }
     })
+    .populate({ path: 'owner'})
     .then(phone => {
         res.status(200).json(phone)
     })
