@@ -41,4 +41,6 @@ not the owner of the phone.
     and description. 
     - The image file field is not required and can upload image 
     from the local computer ( only jpeg and png files less than 5mb are accepted)
-    - after submit phone data is updated and the application redirects to the catalog view               
+    - after submit phone data is updated and the application redirects to the catalog view
+
+* live deployment on https://phone-store-jocg.onrender.com/                   
