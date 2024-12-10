@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { EMAIL_PREFIX_LENGTH } from '../../constants';
+import { environment } from '../../../environments/environment';
 import { EmailDirective } from '../../directives/email.directive';
 import { ErrorMsgService } from '../../core/error-msg/error-msg.service';
 
@@ -15,7 +15,7 @@ import { ErrorMsgService } from '../../core/error-msg/error-msg.service';
 })
 export class LoginComponent implements OnInit{
   errorMsg = signal('');
-  emailPrefixLength = EMAIL_PREFIX_LENGTH;
+  emailPrefixLength = environment.EMAIL_PREFIX_LENGTH;
 
 
   constructor(

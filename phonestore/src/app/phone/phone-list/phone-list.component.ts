@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Phone } from '../../types/phone';
 import { ApiService } from '../../api.service';
 import { RouterLink } from '@angular/router';
-import { IMAGES_URL } from '../../constants';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-phone-list',
@@ -13,7 +13,7 @@ import { IMAGES_URL } from '../../constants';
 })
 export class PhoneListComponent {
   phones : Phone[] = [];
-  imagesUrl = IMAGES_URL
+  imagesUrl = environment.IMAGES_URL
 
   constructor( private apiService: ApiService){}
 

@@ -9,6 +9,8 @@ import { UserService } from './user/user.service';
 const { apiUrl } = environment;
 
 export const appInterceptor: HttpInterceptorFn = (req, next) => {
+  //console.log({apiUrl});
+  
   const API = '/api'
   if(req.url.startsWith('/api')){
     req = req.clone({

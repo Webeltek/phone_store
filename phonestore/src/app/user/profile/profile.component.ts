@@ -3,7 +3,7 @@ import { Phone } from '../../types/phone';
 import { ProfileDetails, User, UserForAuth } from '../../types/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { emailValidator } from '../../utils/email.validator';
-import { EMAIL_PREFIX_LENGTH, IMAGES_URL } from '../../constants';
+import { environment } from '../../../environments/environment';
 import { ApiService } from '../../api.service';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit{
 
   createdPhones: Phone[] = [];
   orderedPhones : Phone[] = [];
-  imagesUrl = IMAGES_URL;
+  imagesUrl = environment.IMAGES_URL;
 
 
   isEditMode: boolean = false;
@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit{
 
   form = new FormGroup({
     username: new FormControl('',[Validators.required, Validators.minLength(5)]),
-    email: new FormControl('',[Validators.required,emailValidator(EMAIL_PREFIX_LENGTH)])
+    email: new FormControl('',[Validators.required,emailValidator(environment.EMAIL_PREFIX_LENGTH)])
   })
 
   handleSaveProfile(){

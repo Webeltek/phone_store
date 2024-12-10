@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { Phone } from '../types/phone';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
-import { IMAGES_URL } from '../constants';
+import { environment } from '../../environments/environment';
 import { ElapsedTimePipe } from '../shared/pipes/elapsed-time.pipe';
 
 @Component({
@@ -15,7 +15,7 @@ import { ElapsedTimePipe } from '../shared/pipes/elapsed-time.pipe';
 })
 export class HomeComponent implements OnInit{
   phones : Phone[] = []
-  imagesUrl = IMAGES_URL;
+  imagesUrl = environment.IMAGES_URL;
 
   constructor( private apiService: ApiService){}
 

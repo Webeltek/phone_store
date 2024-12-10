@@ -5,7 +5,7 @@ import { ApiService } from '../../../api.service';
 import { UserService } from '../../../user/user.service';
 import { ElapsedTimePipe } from '../../../shared/pipes/elapsed-time.pipe';
 import { FormsModule, NgForm } from '@angular/forms';
-import { IMAGES_URL } from '../../../constants';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-current-phone',
@@ -18,7 +18,7 @@ export class CurrentPhoneComponent implements OnInit{
 
   phone = {} as Phone;
   phoneId = '';
-  imagesUrl = IMAGES_URL;
+  imagesUrl = environment.IMAGES_URL;
 
   constructor(private route: ActivatedRoute, 
     private apiService: ApiService,

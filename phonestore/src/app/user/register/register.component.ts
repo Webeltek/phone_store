@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { emailValidator } from '../../utils/email.validator';
-import { EMAIL_PREFIX_LENGTH } from '../../constants';
+import { environment } from '../../../environments/environment';
 import { matchPasswordsValidator } from '../../utils/match-passwords.validator';
 import { RegUser, UserService } from '../user.service';
 import { ErrorMsgService } from '../../core/error-msg/error-msg.service';
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit{
 
   registerForm = new FormGroup({
     username: new FormControl('',[Validators.required,Validators.minLength(5),Validators.pattern('[a-zA-Z0-9]+')]),
-    email: new FormControl('',[Validators.required, emailValidator(EMAIL_PREFIX_LENGTH)]),
+    email: new FormControl('',[Validators.required, emailValidator(environment.EMAIL_PREFIX_LENGTH)]),
     //todo put Password in group
     passGroup: new FormGroup({
       password: new FormControl('',[Validators.required,Validators.minLength(5), Validators.pattern('[a-zA-Z0-9]+')]),
