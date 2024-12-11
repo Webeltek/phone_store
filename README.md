@@ -1,6 +1,6 @@
 1. run npm install inside rest-api folder
 2. run npm install inside phonestore folder
-3. mongo database server must be running on localhost:27017
+3. mongo database server must be installed and running on localhost:27017 (with default configuration - no access control)
 4. run npm start inside rest-api folder
  - express rest api server is accepting requests on port 3100 in development mode with address http://localhost:3100/api
 5. run ng serve inside phonestore folder
