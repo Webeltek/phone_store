@@ -1,3 +1,5 @@
+### Installation
+
 1. run npm install inside rest-api folder
 2. run npm install inside phonestore folder
 3. mongo database server must be installed and running on localhost:27017 (with default configuration - no access control)
@@ -10,6 +12,7 @@
 * The private views available for registered users are: Profile, Add Phone , Edit Phone , Phone details  with Edit and Delete buttons or Order button if user is
 not the owner of the phone.
 
+### Components
 1. Home: 
     - in the home view are listed the last 5 added phones from every user with details button
     which redirects to phone details and Shop Now button which redirects to Catalog view
