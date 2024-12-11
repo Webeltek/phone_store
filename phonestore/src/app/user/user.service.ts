@@ -1,8 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { UserForAuth } from '../types/user';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { BehaviorSubject, catchError, of, Subscription, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, catchError, EMPTY, Subscription, tap, throwError } from 'rxjs';
 
 export type RegUser = {username:string, email: string, password: string }
 
@@ -28,24 +27,12 @@ export class UserService implements OnDestroy{
     })
   }
 
-  setSessUser(user: UserForAuth){
-    const { _id, username } = user
-    sessionStorage.setItem(this.USER_KEY,JSON.stringify({ _id, username }))
-  }
-
-  getSessUser(){
-    return JSON.parse(sessionStorage.getItem(this.USER_KEY) || '')
-  }
-
-  clearSessUser(){
-    sessionStorage.removeItem(this.USER_KEY);
-  }
+  
 
   login(email: string, password: string){
 
     return this.http.post<UserForAuth>('/api/login', { email, password})
     .pipe(tap((user)=>{
-      this.setSessUser(user)
       this.user$$.next(user)}))
     
   }
@@ -54,7 +41,6 @@ export class UserService implements OnDestroy{
     
     return this.http.post('/api/logout',{})
     .pipe(tap((user)=> {
-      this.clearSessUser()
       this.user$$.next(null)
     }
     ))
@@ -67,7 +53,6 @@ export class UserService implements OnDestroy{
       password, 
       rePassword})
     .pipe(tap((user)=> {
-      this.setSessUser(user)
       this.user$$.next(user)
     }))
   }
@@ -84,11 +69,6 @@ export class UserService implements OnDestroy{
     return this.http.get<UserForAuth>('/api/users/profile')
     .pipe(
       tap((user)=> {
-          if(user){
-            this.setSessUser(user);
-          } else {
-            this.clearSessUser()
-          }
           this.user$$.next(user)
         }
       ))
