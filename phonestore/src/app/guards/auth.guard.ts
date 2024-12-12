@@ -10,7 +10,7 @@ export const AuthGuard: CanActivateFn =
     const router = inject(Router)
 
     return userService.getProfile().pipe(map((user)=>{
-        //console.log({guestGuardUsr: user});
+        console.log({authGuardUsr: user});
         
         if(user){
             return true;
@@ -19,7 +19,7 @@ export const AuthGuard: CanActivateFn =
             return false;
         }
     }), catchError((err)=>{
-        //console.log({authGuardCatchErr: err});
+        console.log({authGuardCatchErr: err});
         router.navigate(['/login'])
         return of(false);
     }))
